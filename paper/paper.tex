@@ -1,52 +1,17 @@
-%% Beginning of file 'paper.tex'
-%%
-%% Star Catalog Debiasing Based on Gaia DR3
-%% Submitted to ApJS
-%% 
-\documentclass[linenumbers]{aastex701}
-
-%% Chinese support - using ctex package (more compatible)
+\documentclass{aastex701}
 \usepackage{ctex}
-
-%% Math support
 \usepackage{amsmath}
-
-%% Suppress font warnings
 \usepackage{silence}
 \WarningFilter{latexfont}{Font shape}
 \WarningFilter{latexfont}{Some font shapes}
 \WarningFilter*{latex}{Font shape}
-
-%% Custom commands
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
 \newcommand\latex{La\TeX}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Running header information
-%%\shorttitle{Star Catalog Debiasing with Gaia DR3}
-%%\shortauthors{Author et al.}
-
-%% Submission dates
-%%\received{Month Day, Year}
-%%\revised{Month Day, Year}
-%%\accepted{Month Day, Year}
-
-%% Journal submission
-%%\submitjournal{ApJS}
-
-%% Figure path
-%%\graphicspath{{./}{figures/}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{document}
 
 \title{Systematic Position and Proper Motion Corrections for Historical Astrometric Catalogs Based on Gaia DR3}
 
-%% Author information
-%% TODO: Add your author information here
-%% Syntax: \author[orcid=XXXX-XXXX-XXXX-XXXX,gname=FirstName,sname=LastName]{Full Name}
 \author{First Author}
 \affiliation{Your Institution, Department}
 \email{your.email@institution.edu}
@@ -55,40 +20,33 @@
 \affiliation{Another Institution}
 \email{second.email@institution.edu}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Abstract
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{abstract}
+(1) Background on systematic errors in historical optical observations of minor bodies; 
 
+(2) Purpose of position and proper motion corrections based on Gaia DR3 unified reference frame; 
 
-[Abstract content to be written. Should cover: (1) Background on systematic errors in historical optical observations of minor bodies; (2) Purpose of position and proper motion corrections based on Gaia DR3 unified reference frame; (3) Data scope including Gaia series and 15 historical astrometric catalogs; (4) Method overview of sky-region-based catalog comparison and systematic bias estimation; (5) Main results including debiasing correction tables and their value for minor body orbit determination. Word limit: 250 words.]
+(3) Data scope including Gaia series and 15 historical astrometric catalogs; 
+
+(4) Method overview of sky-region-based catalog comparison and systematic bias estimation; 
+
+(5) Main results including debiasing correction tables and their value for minor body orbit determination. Word limit: 250 words.]
 
 \end{abstract}
 
-%% Keywords using Unified Astronomy Thesaurus (UAT)
-%% https://astrothesaurus.org
-\keywords{Astrometry --- Astronomical catalogs --- Proper motions --- Minor planets --- Gaia}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Main Body
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\keywords{Astrometry --- Astronomical catalogs --- Minor planets --- Gaia}
 
 \section{Introduction} \label{sec:intro}
-
 %% 小天体轨道确定对高质量光学天体测量数据的依赖
 %% 历史光学观测中参考星表多样性带来的系统误差问题
 %% 星表系统误差对轨道拟合残差和长期轨道预报的影响
 
 小天体的精确轨道确定依赖于高质量的光学天体测量数据。Gaia 任务 \citep{2022ApJ...935..167A} 为天体测量提供了前所未有的精度。历史观测中使用了多种参考星表，这些星表之间存在系统性差异。
-
 %% 既有星表去偏工作的演进脉络
 %% - 基于 2MASS 的早期区域去偏
 %% - 引入自行修正的扩展方法
 %% - Gaia 时代星表去偏工作的出现
 
 早期的星表去偏工作基于 2MASS 等星表进行区域修正。随着 Gaia 数据的发布 \citep{2018AJ....156..123A}，星表去偏工作进入了新的阶段。
-
 %% 本工作的研究动机与目标
 %% - 利用 Gaia DR3 的最新精度优势
 %% - 扩展并统一多套历史星表的去偏修正
@@ -96,48 +54,106 @@
 
 本工作利用 Gaia DR3 的最新精度优势，对多套历史星表进行系统性的位置与自行偏差修正，为小天体轨道确定提供可靠的数据基础。
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Reference and Astrometric Catalogs} \label{sec:catalogs}
-
-%% 本章定位：交代数据来源，不涉及算法细节
-
 \subsection{Gaia Catalog Series} \label{subsec:gaia}
-
 %% Gaia 任务的总体目标与天球参考框架地位
 %% Gaia 星表的数据发布机制
 %% - Gaia DR1、DR2、EDR3、DR3 的演进关系
 %% Gaia DR3 在天体测量精度、系统误差控制和一致性方面的特点
 %% 选用 Gaia DR3 作为统一参考星表的理由
 
-[Content on Gaia catalog series to be written]
+2013 年以来，Gaia 任务对全天空开展了持续的高精度天体测量观测，并已获得约 18 亿个天体源的位置和光度信息。Gaia 第二次数据发布（Gaia DR2）首次向公众提供了大规模包含位置、视差和自行在内的五参数天体测量解，使 Gaia 星表成为研究恒星运动、小天体天体测量以及外部星表系统误差的重要参考数据源。Eggl 等人（2020）基于 Gaia DR2 的五参数天体测量结果，构建了区域性星表修正模型，并在小天体测量中显著降低了历史星表的系统偏差。
+
+随后发布的 Gaia EDR3 与 Gaia DR3 在天体测量参数化形式上与 Gaia DR2 保持一致，但在观测时间基线、姿态重建、色差标定以及仪器模型等方面均进行了系统性改进。Gaia DR3 的天体测量解基于约 34 个月的观测数据，相较 Gaia DR2 的约 22 个月显著延长。官方验证结果表明，与 Gaia DR2 相比，Gaia DR3 的视差形式不确定度典型降低约 20\%，自行形式不确定度降低约一倍以上，反映出天体测量精度的实质性提升。
+
+\begin{deluxetable}{ccc}[ht!]
+\tablewidth{0pt}
+\tablecaption{Comparison of Gaia DR2 and Gaia DR3 astrometric properties \label{tab:gaia_comparison}}
+\tablehead{
+\colhead{Property} & \colhead{Gaia DR2} & \colhead{Gaia DR3}
+}
+\startdata
+Observation time span       & $\sim$22 months             & $\sim$34 months                   \\
+Five-parameter solutions    & $\sim$1.3 $\times$ 10$^{9}$ & $\sim$5.9 $\times$ 10$^{8}$       \\
+Six-parameter solutions     & Not available               & $\sim$8.8 $\times$ 10$^{8}$       \\
+Proper-motion uncertainty   & Reference level             & $\sim$factor 2 improvement        \\
+Error distribution          & Quasi-Gaussian              & Quasi-Gaussian (5p $>$ 6p)        \\
+Uncertainty underestimation & Present                     & Present, better quantified        \\
+Systematic noise floor (5p) & Not quantified              & $\sim$15 $\mu$as                  \\
+\enddata
+\end{deluxetable}
+在解算策略方面，Gaia DR3 对五参数天体测量解的准入条件进行了更为严格的质量控制。大量在 Gaia DR2 中获得五参数解的源，在 Gaia DR3 中被重新分类为六参数解或仅位置解，以避免由于颜色信息不足、扫描几何退化或非单星运动导致的模型不自洽。验证结果显示，天体测量不确定度在统计上仍近似服从高斯分布，其中五参数解的正态性明显优于六参数解，后者包含了较高比例的非单星系统。与此同时，视差和自行的不确定度在部分情况下仍存在低估现象，该效应在亮星和六参数解中更为显著。对于五参数解，最精确视差的不确定度低估因子可达约 1.35，其总不确定度可通过在形式误差基础上引入约 15 微角秒的系统项进行描述。
+
+鉴于星表修正方法对参考星表误差统计特性的高度敏感性，本文延续 Eggl 等人（2020）的基本思路，选用 Gaia DR3 中质量受控的五参数天体测量解作为参考星表基础，以期在区域系统误差建模和小天体天体测量应用中获得更稳健的结果。
 
 \subsection{Historical Astrometric Catalogs} \label{subsec:historical}
-
 %% 本工作纳入分析的历史星表总体范围
 %% 星表的观测年代分布与时间跨度
 %% 是否包含自行信息的分类
 %% 星表在小天体观测归档中的实际使用情况
 
-[Content on historical astrometric catalogs to be written]
+\subsubsection{AC} \label{subsubsec:ac}
 
-\subsection{Overall Characteristics of the Catalog Collection} \label{subsec:characteristics}
+\subsubsection{AGK1} \label{subsubsec:agk1}
 
-%% 星表的天空覆盖与密度差异
-%% 不同精度等级星表的共存现象
-%% 与既有星表去偏工作的覆盖范围对比
-%% 本工作所处理星表集合的扩展性与代表性
+\subsubsection{AGK3} \label{subsubsec:agk3}
 
-[Content on catalog collection characteristics to be written]
+\subsubsection{FK4 catalogue} \label{subsubsec:fk4}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{SAO} \label{subsubsec:sao}
+
+\subsubsection{ACRS} \label{subsubsec:acrs}
+
+\subsubsection{ACT} \label{subsubsec:act}
+
+\subsubsection{PPM} \label{subsubsec:ppm}
+
+\subsubsection{Yale} \label{subsubsec:yale}
+
+\subsubsection{Hipparcos} \label{subsubsec:hipparcos}
+
+\subsubsection{Tycho 2} \label{subsubsec:tycho2}
+
+\subsubsection{USNO A2.0} \label{subsubsec:usnoa2}
+
+\subsubsection{GSC 1.2} \label{subsubsec:gsc12}
+
+\subsubsection{UCAC 2} \label{subsubsec:ucac2}
+
+\subsubsection{UCAC 4} \label{subsubsec:ucac4}
+
+\begin{deluxetable}{cccccccc}[ht!]
+\tablewidth{0pt}
+\tablecaption{Summary of astrometric catalogs used in this work\label{tab:catalog_overview}}
+\tablehead{
+\colhead{星表} & \colhead{星等} & \colhead{星数} & \colhead{历元} & \colhead{参考系} & \colhead{自行} & \colhead{天区覆盖率} & \colhead{VizieR CDS ID}
+}
+\startdata
+AC            & $V \approx 6\text{--}11.0$    & 2,026,347     & plate epoch          & B1950   & NO  & 41    & I/154        \\
+AGK1          & $V \approx 2.2\text{--}9.1$   & 5,954         & mean epoch           & B1875   & NO  & 0     & I/310        \\
+AGK3          & $B,V \approx 6\text{--}11$    & 183,145       & epoch of observation & B1950   & YES & 4     & I/61B        \\
+FK4 catalogue & $V \approx 1\text{--}9.5$     & 1,535         & B1950                & B1950   & YES & 0     & I/143        \\
+SAO           & $V = 0\text{--}11$            & 258,997       & J2000                & J2000   & YES & 5     & I/131A       \\
+ACRS          & $V \approx 6\text{--}11$      & 320,211       & J2000                & J2000   & YES & 7     & I/171        \\
+ACT           & $V \approx 6\text{--}11.5$    & 988,758       & J2000                & J2000   & YES & 20    & I/246        \\
+PPM           & $V \approx 1\text{--}11.5$    & 378,910       & J2000                & J2000   & YES & 8     & I/146, I/193 \\
+Yale          & $V \approx -1\text{--}6.5$    & 221,338       & epoch of observation & B1950   & YES & 5     & I/141        \\
+Hipparcos     & $V \approx 1\text{--}12.4$    & 118,218       & J1991.25             & J2000   & YES & 2     & I/239        \\
+Tycho 2       & $V \approx 2\text{--}12.5$    & 2,539,913     & J2000                & J2000   & YES & 52    & I/259        \\
+USNO A2.0     & $B,R = 11\text{--}20$         & 526,280,881   & mean epoch           & J2000   & NO  & 10,707 & I/252       \\
+GSC 1.2       & $V \approx 6\text{--}15$      & 18,825,216    & plate epoch          & J2000   & NO  & 383   & I/254        \\
+UCAC 2        & $R \approx 8\text{--}16$      & 48,330,571    & J2000                & J2000   & YES & 983   & I/289        \\
+UCAC 4        & $R \approx 7\text{--}16$      & 113,780,093   & J2000                & J2000   & YES & 2,315 & I/322A       \\
+Gaia EDR3     & $G = 3\text{--}21$            &               & J2016                & J2016   & YES & 0     & I/350        \\
+Gaia DR2      & $G = 3\text{--}21$            & 1,331,909,727 & J2015.5              & J2015.5 & YES & 27,098 & I/345       \\
+Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015                & J2015   & NO  & 23,248 & I/337       \\
+\enddata
+\tablecomments{The basic properties of the astrometric catalogs included in the debiasing analysis. The sky coverage values quantify the number of sky regions with usable data in this work.}
+\end{deluxetable}
 
 \section{Star Position and Proper Motion Corrections} \label{sec:methods}
 
-%% 本章定位：纯方法章，不给结果
-
 \subsection{Basic Framework of the Correction Method} \label{subsec:framework}
-
 本研究的方法总体上继承了 Chesley 等人 (2010)、Farnocchia 等人 (2015) 以及 Eggl 等人 (2020) 所提出的星表系统误差去偏框架。通过将全天球划分为等面积天区，在局部天区尺度上比较测试星表与参考星表中恒星的位置与自行差异，从而估计星表的系统性偏差。基于 Gaia 星表在天体测量精度方面的显著优势，本研究选用 Gaia DR3 作为统一的参考星表。
 
 在实现过程中，不同星表之间首先被统一到一致的比较基准。参考星表与测试星表的恒星位置与自行均被转换至 J2000 历元，对于早期星表同时考虑参考系的统一。随后，采用 HEALPix 等面积像素化方案将全天球划分为 $49{,}152$ 个天区，对应单个天区面积约为 $0.8~\mathrm{deg}^2$，并在每个天区内对测试星表与 Gaia DR3 中的恒星源进行空间交叉匹配。
@@ -146,97 +162,68 @@
 
 在完成恒星交叉匹配后，对每个天区内匹配恒星在位置与自行上的差异进行统计分析。所有差异均在 J2000.0 历元下计算，分别对应赤经与赤纬方向。对于每一个天区和每一个目标星表，估计其在 J2000.0 历元下的位置修正 $(\Delta\alpha_{2000}, \Delta\delta_{2000})$ 以及对应的自行修正 $(\Delta\mu_{\alpha}, \Delta\mu_{\delta})$。上述修正量采用稳健统计量（中位数）进行估计，以降低异常值和残余误匹配对结果的影响。
 
-对于一条在$t$时刻给出的光学观测，其由参考星表系统误差引入的修正量表示为
+对于一条在 $t$ 时刻给出的光学观测，其由参考星表系统误差引入的修正量表示为
+
 \begin{equation}
 \begin{split}
 \Delta\alpha(t) &= \Delta\alpha_{2000} + \Delta\mu_{\alpha} \cdot (t - 2000.0)\\
 \Delta\delta(t) &= \Delta\delta_{2000} + \Delta\mu_{\delta} \cdot (t - 2000.0)
 \end{split}
 \end{equation}
-
 其中赤经方向的修正量已包含球面几何中的 $\cos\delta$ 因子。将上述修正应用于原始观测后，历史光学观测可视为已统一至 Gaia DR3 参考框架下，从而能够在一致的误差模型中用于轨道确定与残差分析。
 
-
 \subsection{Correction Procedure and Implementation} \label{subsec:procedure}
-
 %% 天区划分策略与统计单元定义
 %% 恒星交叉匹配的基本原则
 %% 位置与自行系统偏差的估计方式
 %% 修正模型在观测历元上的应用
 %% 修正流程的工程实现与可扩展性说明
 
-[Content on correction procedure to be written]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+something
 
 \section{Results and Validation} \label{sec:results}
-
 %% 各星表位置与自行系统偏差的整体分布特征
 %% 不同星表之间偏差幅度的对比
 %% 特定天区（如银河平面附近）的偏差行为
 %% 修正前后小天体观测残差的变化
 %% 修正效果在轨道拟合中的验证
 
-[Results and validation content to be written]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+something
 
 \section{Discussion} \label{sec:discussion}
-
 %% 星表系统误差的主要来源分析
 %% 不同类型星表（含自行 / 不含自行）的差异
 %% 修正结果在长期轨道预报中的意义
 %% 方法的适用范围与潜在局限
 %% 与既有星表去偏方案的关系与改进点
 
-[Discussion content to be written]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+something
 
 \section{Conclusions} \label{sec:conclusions}
-
 %% 本工作的主要成果总结
 %% Gaia DR3 参考框架下星表去偏修正的价值
 %% 对未来小天体天体测量与轨道确定工作的意义
 
-[Conclusions to be written]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+something
 
 \section{Data and Code Availability} \label{sec:data}
-
 %% 星表去偏修正表的获取方式
 %% 数据格式与使用说明
 %% 代码与处理流程的可获取性说明
 
-[Data and code availability statement to be written]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Acknowledgments
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+something  
 
 \begin{acknowledgments}
 [Acknowledgments to be written]
 \end{acknowledgments}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Author Contributions (optional)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%\begin{contribution}
 %%[Author contributions to be written]
 %%\end{contribution}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Bibliography
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \bibliographystyle{aasjournalv7}
 \bibliography{references}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
 
@@ -244,6 +231,6 @@
 
 %% 星表完整列表与参数说明
 
-[Appendix content: Complete catalog list with parameters to be written]
+
 
 \end{document}
