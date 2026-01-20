@@ -10,6 +10,7 @@
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
 \newcommand\latex{La\TeX}
+\newcommand{\catalogitem}[1]{\par\vspace{1ex}\noindent\textbf{#1}\par\noindent}
 \begin{document}
 
 \title{Systematic Position and Proper Motion Corrections for Historical Astrometric Catalogs Based on Gaia DR3}
@@ -95,76 +96,92 @@ Gaia DR3 对五参数天体测量解的准入条件进行了更为严格的质�
 %% 星表在小天体观测归档中的实际使用情况
 不同历史时期的光学观测依赖于多种恒星参考目录。这些目录在观测历元、覆盖范围、源密度和天文测量内容上有所不同，反映了地面和空间天文测量发展的连续阶段。下面对所涉及的星表作简要概述。
 
-\subsubsection{Astrographic Catalogue} \label{subsubsec:ac}
+\catalogitem{Astrographic Catalogue} \label{subsubsec:ac}
+
 The Astrographic Catalogue (AC) is one of the earliest large-scale photographic astrometric catalogs, produced within the framework of the international *Carte du Ciel* project initiated at the end of the 19th century. The project employed standardized astrographs to photograph the sky in declination zones assigned to different observatories, with the bulk of the observations carried out between the late 1890s and the first half of the 20th century.
 
 The AC comprises several million stellar positions derived from photographic plates, with typical positional accuracies at the few hundred milliarcsecond level. Owing to its very early mean epoch, AC primarily represents the reference framework of early photographic astrometry and provides the longest available astrometric time baseline among the catalogs considered in this work.
 
-\subsubsection{Astronomische Gesellschaft Katalog 1} \label{subsubsec:agk1}
+\catalogitem{Astronomische Gesellschaft Katalog 1} \label{subsubsec:agk1}
+
 AGK1 is a fundamental star catalog based on visual meridian-circle observations, covering the northern sky down to approximately −2 degrees in declination. Its observations were obtained mainly between the late 19th century and the early 20th century.
 
 With a limiting magnitude of about 9 and positional accuracies at the arcsecond level, AGK1 represents the reference framework of pre-photographic astrometry. It served as a primary reference catalog for several early photographic surveys, including parts of the Astrographic Catalogue.
 
-\subsubsection{Astronomische Gesellschaft Katalog 3} \label{subsubsec:agk3}
+\catalogitem{Astronomische Gesellschaft Katalog 3} \label{subsubsec:agk3}
+
 AGK3 is a photographic catalog covering the northern sky, developed as the third installment of the AGK series. Its observations were carried out around the late 1950s, and it introduced proper motion information by re-observing earlier AGK stars.
 
 With typical positional accuracies of about 0.1 arcseconds and proper motion accuracies at the level of several milliarcseconds per year, AGK3 became a widely adopted reference catalog for ground-based astrometry during the 1970s–1990s. The catalog is strictly tied to the FK4 reference frame.
 
-\subsubsection{Fourth Fundamental Catalogue} \label{subsubsec:fk4}
+\catalogitem{Fourth Fundamental Catalogue} \label{subsubsec:fk4}
+
 The Fourth Fundamental Catalogue (FK4) defined the B1950.0 optical reference frame and constituted the backbone of mid-20th-century astrometry. Although it contains only 1,535 bright fundamental stars, FK4 provided a highly consistent realization of the reference system at the time of its construction.
 
 Many subsequent ground-based catalogs, including AGK3 and SAO, were directly or indirectly tied to FK4. As a result, its reference frame properties propagated into a large fraction of historical astrometric observations.
 
-\subsubsection{Smithsonian Astrophysical Observatory Catalog} \label{subsubsec:sao}
+\catalogitem{Smithsonian Astrophysical Observatory Catalog} \label{subsubsec:sao}
+
 The SAO Catalog is a compiled all-sky stellar catalog produced to supply sufficient reference star density for practical astrometric applications. It contains approximately 259,000 stars and was widely used in the early computer era for optical observation reduction, including satellite tracking.
 
 The northern portion of SAO primarily relies on AGK-based data, while the southern sky incorporates data from the Yale and Cape catalogs. This heterogeneous construction reflects the state of global astrometric resources available at the time.
-\subsubsection{Astrographic Catalog Reference Stars} \label{subsubsec:acrs}
+
+\catalogitem{Astrographic Catalog Reference Stars} \label{subsubsec:acrs}
+
 The Astrographic Catalog Reference Stars (ACRS) catalog was compiled by the U.S. Naval Observatory to provide reference stars for the re-reduction of the Astrographic Catalogue. It combines northern hemisphere data from AGK3 with southern hemisphere data from the Second Cape Photographic Catalogue (CPC2).
 
 ACRS was transformed onto the FK5 reference frame and represents an intermediate step between early photographic catalogs and later compiled all-sky catalogs with improved reference frame consistency.
 
-\subsubsection{ACT Reference Catalog} \label{subsubsec:act}
+\catalogitem{ACT Reference Catalog} \label{subsubsec:act}
+
 The ACT catalog was constructed by combining early epoch positions from the Astrographic Catalogue with later observations from Tycho-1. This approach significantly improved proper motion accuracy compared to Tycho-1 alone, reaching typical values of a few milliarcseconds per year.
 
 ACT played an important role during the transition period between classical ground-based astrometry and space-based catalogs in the Hipparcos era.
 
-\subsubsection{Positions and Proper Motions Catalog} \label{subsubsec:ppm}
+\catalogitem{Positions and Proper Motions Catalog} \label{subsubsec:ppm}
+
 The PPM catalog was developed as a successor to SAO, with the objective of providing a uniform realization of the J2000.0 reference frame. It contains nearly 380,000 stars and incorporates data from AGK3 in the north and FOKAT-S in the south, supplemented by early photographic observations to extend the time baseline for proper motion determination.
 
 Before the advent of CCD-based surveys, PPM represented one of the most advanced compiled ground-based astrometric catalogs.
 
-\subsubsection{Yale Zone Catalogs} \label{subsubsec:yale}
+\catalogitem{Yale Zone Catalogs} \label{subsubsec:yale}
+
 The Yale Zone Catalogs consist of a series of regional photographic catalogs compiled by the Yale University Observatory. Their observations were mainly conducted between the 1930s and 1950s and focused on equatorial and southern sky regions.
 
 These catalogs were designed to improve the efficiency of stellar position measurements over wide fields and later contributed substantially to several compiled all-sky catalogs. In terms of astrometric precision, the Yale Zone Catalogs typically reach sub-arcsecond accuracy, characteristic of mid-20th-century photographic astrometry.
 
-\subsubsection{Hipparcos Catalog} \label{subsubsec:hipparcos}
+\catalogitem{Hipparcos Catalog} \label{subsubsec:hipparcos}
+
 The Hipparcos catalog is the result of the first space astrometry mission and provides a high-precision, nearly rigid optical reference frame. It contains about 118,000 stars with typical positional and proper motion accuracies at the milliarcsecond level, with a mean observational epoch around 1991.25.
 
 Hipparcos established the foundation for all subsequent modern astrometric catalogs and serves as a fundamental link between ground-based and space-based reference systems.
 
-\subsubsection{Tycho-2 Catalog} \label{subsubsec:tycho2}
+\catalogitem{Tycho-2 Catalog} \label{subsubsec:tycho2}
+
 The Tycho-2 catalog combines Hipparcos star mapper observations with data from 144 ground-based catalogs to produce positions and proper motions for approximately 2.5 million stars. Typical positional accuracies are of order 60 mas, with proper motion accuracies around 2–3 mas/yr.
 
 Prior to Gaia, Tycho-2 was the most widely used dense all-sky catalog for high-precision astrometric applications.
 
-\subsubsection{USNO-A2.0 Catalog} \label{subsubsec:usnoa2}
+\catalogitem{USNO-A2.0 Catalog} \label{subsubsec:usnoa2}
+
 USNO-A2.0 is a very large astrometric catalog generated from scans of photographic Schmidt plates, containing over 500 million sources. The catalog does not provide proper motion information; all positions correspond to the plate observation epochs, typically around 1950 for POSS-I and around 1980 for POSS-II and SRC plates.
 
 Due to its extremely high source density, USNO-A2.0 was extensively used for optical observation reduction before the availability of dense CCD-based catalogs.
 
-\subsubsection{Guide Star Catalog 1.2} \label{subsubsec:gsc12}
+\catalogitem{Guide Star Catalog 1.2} \label{subsubsec:gsc12}
+
 GSC 1.2 is a re-calibrated version of the original Guide Star Catalog, developed primarily to support space telescope pointing requirements. It contains roughly 19 million stars and is based on photographic plate material, with positional accuracies at the few tenths of an arcsecond level.
 
 Although it does not include proper motions, GSC 1.2 has been widely used as an auxiliary reference catalog for ground-based astrometry.
 
-\subsubsection{UCAC 2} \label{subsubsec:ucac2}
+\catalogitem{UCAC 2} \label{subsubsec:ucac2}
+
 UCAC2 is the second release of the U.S. Naval Observatory CCD Astrograph Catalog and represents the transition from photographic plates to CCD-based astrometry. Its observations were conducted between approximately 1998 and 2003 and cover most of the sky from −90° to about +40° in declination.
 
 The catalog contains about 48 million stars, with positional accuracies ranging from roughly 15 to 70 mas and proper motion accuracies at the level of 1–7 mas/yr.
 
-\subsubsection{UCAC 4} \label{subsubsec:ucac4}
+\catalogitem{UCAC 4} \label{subsubsec:ucac4}
+
 UCAC4 is the final release of the UCAC project and provides all-sky coverage. It includes over 113 million stars and incorporates improved proper motion determinations through the use of additional early-epoch photographic material.
 
 With typical positional accuracies of about 15–20 mas for stars in the magnitude range 10–14, UCAC4 represents the mature stage of ground-based CCD astrometric catalogs prior to the Gaia era.
@@ -209,16 +226,15 @@ Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015           
 
 在完成恒星交叉匹配后，对每个天区内匹配恒星在位置与自行上的差异进行统计分析。所有差异均在 J2000.0 历元下计算，分别对应赤经与赤纬方向。对于每一个天区和每一个目标星表，估计其在 J2000.0 历元下的位置修正 $(\Delta\alpha_{2000}, \Delta\delta_{2000})$ 以及对应的自行修正 $(\Delta\mu_{\alpha}, \Delta\mu_{\delta})$。上述修正量采用稳健统计量（中位数）进行估计，以降低异常值和残余误匹配对结果的影响。
 
-对于一条在 $t$ 时刻给出的光学观测，其由参考星表系统误差引入的修正量表示为
-
+对于一条在 $t$ 时刻给出的光学观测，其由参考星表系统误差引入的修正量表示为：
 \begin{equation}
 \begin{split}
 \Delta\alpha(t) &= \Delta\alpha_{2000} + \Delta\mu_{\alpha} \cdot (t - 2000.0)\\
 \Delta\delta(t) &= \Delta\delta_{2000} + \Delta\mu_{\delta} \cdot (t - 2000.0)
 \end{split}
 \end{equation}
-其中赤经方向的修正量已包含球面几何中的 $\cos\delta$ 因子。将上述修正应用于原始观测后，历史光学观测可视为已统一至 Gaia DR3 参考框架下，从而能够在一致的误差模型中用于轨道确定与残差分析。
 
+\tablecomments{其中赤经方向的修正量已包含球面几何中的 $\cos\delta$ 因子。将上述修正应用于原始观测后，历史光学观测可视为已统一至 Gaia DR3 参考框架下，从而能够在一致的误差模型中用于轨道确定与残差分析。}
 \subsection{修正流程与实现} \label{subsec:procedure}
 %% 天区划分策略与统计单元定义
 %% 恒星交叉匹配的基本原则
