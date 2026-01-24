@@ -5,7 +5,7 @@
 \WarningFilter{latexfont}{Font shape}
 \WarningFilter{latexfont}{Some font shapes}
 \WarningFilter*{latex}{Font shape}
-\WarningFilter{hyperref}{Option `driverfallback'}
+
 \WarningFilter{nameref}{The definition of}
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
@@ -70,20 +70,21 @@
 
 \begin{deluxetable}{cccc}[ht!]
 \tablewidth{0pt}
-\tablecaption{Comparison of Gaia DR2 and Gaia DR3 astrometric properties \label{tab:gaia_comparison}}
+\tablecaption{Comparison of Gaia DR1, DR2 and Gaia DR3 astrometric properties \label{tab:gaia_comparison}}
 \tablehead{
 \colhead{Property} & \colhead{Gaia DR1} & \colhead{Gaia DR2} & \colhead{Gaia DR3}
 }
 \startdata
-Observation time span       & ****            & $\sim$22 months             & $\sim$34 months                   \\
-Five-parameter solutions    & ****            & $\sim$1.3 $\times$ 10$^{9}$ & $\sim$5.9 $\times$ 10$^{8}$       \\
-Six-parameter solutions     & ****            & Not available               & $\sim$8.8 $\times$ 10$^{8}$       \\
-Proper-motion uncertainty   & ****            & Reference level             & $\sim$factor 2 improvement        \\
-Error distribution          & ****            & Quasi-Gaussian              & Quasi-Gaussian (5p $>$ 6p)        \\
-Uncertainty underestimation & ****            & Present                     & Present, better quantified        \\
-Systematic noise floor (5p) & ****            & Not quantified              & $\sim$15 $\mu$as                  \\
+Observation time span       & $\sim$14 months            & $\sim$22 months             & $\sim$34 months                \\
+Five-parameter solutions    & $\sim$2 $\times$ 10$^{6}$ (TGAS) & $\sim$1.3 $\times$ 10$^{9}$ & $\sim$5.9 $\times$ 10$^{8}$    \\
+Six-parameter solutions     & Not available              & Not available               & $\sim$8.8 $\times$ 10$^{8}$    \\
+Proper-motion uncertainty   & $\sim$1 mas yr$^{-1}$      & Reference level             & $\sim$factor 2 improvement     \\
+Error distribution          & Quasi-Gaussian (TGAS)      & Quasi-Gaussian              & Quasi-Gaussian (5p $>$ 6p)     \\
+Uncertainty underestimation & Present                    & Present                     & Present, better quantified     \\
+Systematic noise floor (5p) & $\sim$0.3 mas              & Not quantified              & $\sim$15 $\mu$as               \\
 \enddata
 \end{deluxetable}
+
 Gaia DR3 对五参数天体测量解的准入条件进行了更为严格的质量控制。大量在 Gaia DR2 中获得五参数解的源，在 Gaia DR3 中被重新分类为六参数解或仅位置解。验证结果显示（引用），天体测量不确定度在统计上仍近似服从高斯分布，其中五参数解的正态性明显优于六参数解，后者包含了较高比例的非单星系统。
 
 鉴于星表修正方法对参考星表误差统计特性的高度敏感性，本文延续 Eggl 等人（2020）的基本思路，选用 Gaia DR3 中质量受控的五参数天体测量解作为参考星表基础。
@@ -196,19 +197,17 @@ Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015           
 
 在前述总体框架基础上，本文对所有测试星表采用统一的系统修正流程，其核心目标是在一致的参考系与历元下，估计各天区内相对于 Gaia DR3 的位置与自行系统偏差。
 
-首先，依据各星表自身提供的信息，将其恒星坐标统一转换至 ICRS 参考系，并归算至 J2000.0 历元。对于已在 ICRS/J2000 框架下给出的星表，仅需利用 Gaia DR3 的自行参数，将参考星位置传播至对应历元后直接进行比较；对于历元或参考系不一致的历史星表，则需在交叉匹配前完成必要的参考系转换与历元对齐。
+首先，依据各星表自身提供的信息，将其恒星坐标统一转换至 ICRS 参考系，并归算至 J2000.0 历元。对于已在 ICRS/J2000 框架下给出的星表，仅需利用 Gaia DR3 的自行参数，将参考星位置传播至对应历元后直接进行比较；对于历元或参考系不一致的历史星表，则需在匹配前完成必要的参考系转换与历元对齐。
 
-完成坐标系统一后，采用 HEALPix 等面积分区方案（\texttt{nside}=64）将全天划分为 49,152 个天区。在每个天区内，以 $1,\mathrm{arcsec}$ 为搜索半径，对测试星表与 Gaia DR3 恒星源进行空间交叉匹配，并施加一一对应约束，仅保留角距离最小且显著优于其他候选的匹配对。对每个天区内所有成功匹配的恒星，在 J2000.0 历元下分别计算赤经与赤纬方向的位置差分，以及对应的自行差分，并采用中位数作为该天区的系统修正量。
+完成坐标系统一后，采用 HEALPix 等面积分区方案（\texttt{nside}=64）将全天划分为 49,152 个天区。在每个天区内，以 $1\mathrm{arcsec}$ 为搜索半径，对测试星表与 Gaia DR3 恒星源进行空间匹配，并施加对应约束。对每个天区内所有成功匹配的恒星，在 J2000.0 历元下分别计算赤经与赤纬方向的位置差分，以及对应的自行差分，并采用中位数作为该天区的系统修正量。
 
-以 AGK1 星表为代表，其恒星坐标最初定义于 FK4 参考系下的 B1875.0 历元。处理时，首先依据 FK4（Newcomb）体系的标准定义，将坐标表达从 FK4@B1875.0 变换至 FK4@B1950.0；随后执行参考系转换（包括 E-terms 的处理与系统旋转），将恒星坐标从 FK4 转换至 ICRS。
-
-为建立统一的比较基准，利用 Gaia DR3 提供的自行参数，将其恒星坐标回退至 B1950.0，并与经上述转换后的 AGK1 坐标进行差分。所得位置与自行差分随后统一折算至 J2000.0 历元，从而定义适用于该星表的系统修正模型。
+以 AGK1 星表为代表，其恒星坐标最初定义于 FK4 参考系下的 B1875.0 历元。为建立统一的比较基准处理时，首先依据 FK4（Newcomb）体系的标准定义，将坐标表达从 FK4@B1875.0 变换至 FK4@B1950.0；随后执行参考系转换（包括 E-terms 的处理与系统旋转），将恒星坐标从 FK4 转换至 ICRS。利用 Gaia DR3 提供的自行参数，将其恒星坐标回退至 B1950.0，并与经上述转换后的 AGK1 坐标进行差分。所得位置与自行差分随后统一折算至 J2000.0 历元，从而定义适用于该星表的系统修正模型。
 
 对于 USNO-A2.0、GSC~1.2 等未提供自行信息的星表，其坐标虽以 ICRS/J2000 形式给出，但 Epoch 仅反映底片观测年代，并不对应坐标的时间演化。此类星表在交叉匹配过程中不对测试星表坐标进行时间传播，而仅将 Gaia DR3 恒星坐标传播至 J2000.0 后进行差分。由此得到的“自行修正”实质上反映了缺失自行信息在时间外推过程中引入的系统性偏差。
 
 \section{Results and Validation} \label{sec:results}
 
-基于上一章所述的去偏流程，本文针对选取的 19 个恒星天体测量星表，估计其相对于参考星表的恒星位置与自行系统修正量。修正量以 J2000 为参考历元，在 HEALPix 划分的天区内对匹配恒星差值进行稳健统计得到。本章首先汇总各星表修正量的全局稳健统计特性，随后以代表性星表为例展示修正量的统计分布形态与全天空间结构，并进一步给出修正结果的验证分析和平滑插值。
+基于上一章所述的去偏流程，本文针对选取的 19 个恒星天体测量星表，估计其相对于参考星表的恒星位置与自行系统修正量。修正量以 J2000 为参考历元，在 HEALPix 划分的天区内对匹配恒星差值进行稳健统计得到。本章首先汇总各星表修正量的全局稳健统计特性，随后以代表性星表为例展示修正量的统计分布形态与全天空间结构，并进一步给出修正结果的验证分析。
 
 \subsection{修正结果总览} \label{subsec:global_corrections}
 
@@ -240,11 +239,7 @@ Yale          & $19.3$   & $410.1$ & $-139.9$ & $439.7$ & $0.58$  & $5.70$ & $-0
 \tablecomments{表中数值为所有有效 HEALPix 天区内修正量的中值（MED）与中值绝对偏差（MAD）。位置修正对应 J2000 历元下的赤经与赤纬分量，其中 $\Delta\alpha$ 已包含 $\cos\delta$ 因子；自行修正单位为 mas\,yr$^{-1}$。}
 \end{deluxetable}
 
-我们对每个星表在所有具有足够匹配样本的有效天区内分别统计位置修正$(\Delta \alpha_{\mathrm{J2000}}, \Delta \delta_{\mathrm{J2000}})$及自行修正$(\Delta \mu_{\alpha}, \Delta \mu_{\delta})$，并采用 MED 与 MAD 对其全局水平与离散度进行表征。
-
-表~\ref{tab:global_corrections_j2000} 显示，不同星表之间的修正量幅度存在显著差异。在位置修正分量上，部分星表的全局中值已达 $\sim10^2$\,mas，并伴随 $\gtrsim10^2$\,mas 的离散度；例如 USNO-A2.0 的 $\Delta\alpha^\ast_{J2000}$ 的 MED 为 68.6 mas、MAD 为 107.6 mas；$\Delta\delta_{J2000}$ 的 MED 为 156.8 mas、MAD 为 124.6 mas。与此同时，也存在位置修正分布更为集中的星表（MAD 为数至十 mas 量级）。
-
-在自行修正分量上，MED 通常为 mas,yr$^{-1}$ 量级，但不同星表之间仍可见明显差异。以 USNO-A2.0 为例，其自行修正为$\Delta\mu_{\alpha}=1.36\pm1.92$\,mas\,yr$^{-1}$，$\Delta\mu_{\delta}=3.31\pm1.32$\,mas\,yr$^{-1}$。
+我们对每个星表在所有具有足够匹配样本的有效天区内分别统计位置修正$(\Delta \alpha_{\mathrm{J2000}}, \Delta \delta_{\mathrm{J2000}})$及自行修正$(\Delta \mu_{\alpha}, \Delta \mu_{\delta})$，并采用 MED 与 MAD 对其全局水平与离散度进行表征。如表~\ref{tab:global_corrections_j2000} 所示。在位置修正分量上，部分星表的全局中值已达 $\sim10^2$\,mas，并伴随 $\gtrsim10^2$\,mas 的离散度；例如 USNO-A2.0 的 $\Delta\alpha^\ast_{J2000}$ 的 MED 为 68.6 mas、MAD 为 107.6 mas；$\Delta\delta_{J2000}$ 的 MED 为 156.8 mas、MAD 为 124.6 mas。与此同时，也存在位置修正分布更为集中的星表（MAD 为数至十 mas 量级）。
 
 除全局统计量外，我们进一步考察修正量在全天范围内的统计分布形态。图~\ref{fig:hist_usnoa2} 以 USNO-A2.0 为例，给出各天区修正量的累积分布。
 
@@ -252,12 +247,10 @@ Yale          & $19.3$   & $410.1$ & $-139.9$ & $439.7$ & $0.58$  & $5.70$ & $-0
 \plotone{../Figue/fig_bias_usno_a2_j2000.png}
 \caption{USNO-A2.0 星表修正量的统计分布}
 \label{fig:hist_usnoa2}
-\tablecomments{图中展示了 USNO-A2.0 星表在全天所有天区内累积得到的位置与自行修正分布。顶部面板分别给出 J2000 历元下赤经（已包含 $\cos\delta$ 因子）与赤纬位置修正的分布，底部面板显示缺失自行信息所导致的自行修正特征。图例中标出了对应分量的中值（MED）与中值绝对偏差（MAD）。}
+% \tablecomments{图中展示了 USNO-A2.0 星表在全天所有天区内累积得到的位置与自行修正分布。顶部面板分别给出 J2000 历元下赤经（已包含 $\cos\delta$ 因子）与赤纬位置修正的分布，底部面板显示缺失自行信息所导致的自行修正特征。图例中标出了对应分量的中值（MED）与中值绝对偏差（MAD）。}
 \end{figure*}
 
-图~\ref{fig:hist_usnoa2} 顶部面板显示，USNO-A2.0 的位置修正在赤经与赤纬方向均呈现明显的偏移：$\Delta\alpha_{J2000}$ 的全局中值为 $68.6$\,mas，$\Delta\delta_{J2000}$ 的全局中值为 $156.8$\,mas，分布整体偏向正值，两分量分布呈现非对称并具有长尾。其离散度分别为MAD$=107.6$\,mas 与 $124.6$\,mas。
-
-底部面板显示，自行修正在两个分量上均存在系统性偏移，其中 $\Delta\mu_{\delta}$ 的中值（$3.31$\,mas\,yr$^{-1}$）高于$\Delta\mu_{\alpha}$（$1.36$\,mas\,yr$^{-1}$），且分布同样呈现非高斯形态。鉴于上述分布的非对称性与离群特征，因此后续统一采用 MED 与 MAD 作为稳健统计量。
+图~\ref{fig:hist_usnoa2} 顶部面板显示，USNO-A2.0 的位置修正在赤经与赤纬方向均呈现明显的偏移：$\Delta\alpha_{J2000}$ 的全局中值为 $68.6$\,mas，$\Delta\delta_{J2000}$ 的全局中值为 $156.8$\,mas，分布整体偏向正值。底部面板显示，自行修正在两个分量上均存在系统性偏移，其中 $\Delta\mu_{\delta}$ 的中值（$3.31$\,mas\,yr$^{-1}$）高于$\Delta\mu_{\alpha}$（$1.36$\,mas\,yr$^{-1}$），且分布同样呈现非高斯形态。鉴于上述分布的非对称性与离群特征，因此后续统一采用 MED 与 MAD 作为稳健统计量。
 
 \subsection{星表修正量的全天空间分布} \label{subsec:bias_usnoa2_2x2}
 
@@ -284,43 +277,57 @@ Yale          & $19.3$   & $410.1$ & $-139.9$ & $439.7$ & $0.58$  & $5.70$ & $-0
 
 与 Eggl et al.\ (2020) 的研究结果一致，本文发现历史星表相对于 Gaia DR3 的系统性偏差并非随机分布，而是呈现出与其原始观测技术、编目策略及历元处理方式密切相关的空间结构。得益于 Gaia DR3 更长的时间基线与更完善的仪器标定，本文不仅复现了此前基于 Gaia DR2 所识别的主要误差形态，还能够更清晰地区分不同来源的系统性结构。基于本文分析的星表样本，其系统性偏差的主导来源可归纳为以下三类机制。
 
-\paragraph{底片视场拼接效应 (Field-of-View Tiling Effects)}
+\subsubsection{底片视场拼接效应 (Field-of-View Tiling Effects)}
 
 以 GSC~1.2、AGK3、SAO 及 Yale 等为代表的底片星表，在全天分布中普遍表现出显著的\textbf{区域性块状结构（regional blocky structures）}。这种空间不连续性直接对应于原始照相底片的视场覆盖范围及其拼接方式，与 Eggl et al.\ (2020) 所指出的结论一致。
 
-进一步的定量统计表明，该类星表在 HEALPix 相邻天区边界处普遍存在显著的修正量跳变。以 Yale、AGK3 与 SAO 星表为例，超过 97\% 的天区边界处修正量跳变幅度大于 $100$\,mas，其中 Yale 星表中约 45\% 的边界跳变幅度超过 $1''$，最大跳变幅度可达数角秒（Yale $\sim7.3''$，AGK3 $\sim3.8''$）。这些结果表明，此类不连续性并非源于少数异常天区，而是底片视场独立归算与区域拼接过程中遗留的系统性畸变与拟合残差的整体体现，反映了缺乏全天统一重叠平差（global block adjustment）所带来的内在局限。
+进一步的定量统计表明，该类星表在 HEALPix 相邻天区边界处普遍存在显著的修正量跳变。以 Yale、AGK3 与 SAO 星表为例，超过 97\% 的天区边界处修正量跳变幅度 $\delta_{\text{jump}} (i, j)$ 大于 $100$\,mas，其中 Yale 星表中约 45\% 的边界 $\delta_{\text{jump}} (i, j)$ 超过 $1''$，最大 $\delta_{\text{jump}} (i, j)$ 可达数角秒（Yale $\sim7.3''$，AGK3 $\sim3.8''$）。这些结果表明，此类不连续性并非源于少数异常天区，而是底片视场独立归算与区域拼接过程中遗留的系统性畸变与拟合残差的整体体现，反映了缺乏全天统一重叠平差（global block adjustment）所带来的内在局限。
+\begin{equation}
+\delta_{\text{jump}} (i, j) = \left| V(i) - V(j) \right|
+\end{equation}
+其中：
+\begin{itemize}
+\item $i, j$ 表示天球上空间相邻的两个 HEALPix 像素索引（即 $j \in \text{Neighbors}(i)$）。
+\item $V(\cdot)$ 表示该像素位置上的修正量数值（例如 $\Delta\alpha^*$ 或 $\Delta\delta$）。
+\item $\delta_{\text{jump}}$ 即为该相邻像素对之间的跳变幅度 (Jump Amplitude)。
+\end{itemize}
 
-\paragraph{扫描观测中的条带结构与星等相关误差 (Scanning Strips and Magnitude Equations)}
-
-对于 UCAC2 等采用带状扫描或重叠观测策略的星表，其系统性偏差通常表现为沿扫描方向分布的\textbf{条带状结构}。在 UCAC2 中可清晰观测到与 Eggl et al.\ (2020) 一致的“星等—位置”耦合现象，即在低银纬、高源密度区域修正幅度显著增大。该类偏差通常归因于早期 CCD 探测器的电荷转移效率（CTE）效应以及拥挤星场中的测量退化。
+对于 UCAC2 等采用带状扫描或重叠观测策略的星表，其系统性偏差通常表现为沿扫描方向分布的条带状结构。在 UCAC2 中可清晰观测到与 Eggl et al.\ (2020) 一致的“星等—位置”耦合现象，即在低银纬、高源密度区域修正幅度显著增大。该类偏差通常归因于早期 CCD 探测器的电荷转移效率（CTE）效应以及拥挤星场中的测量退化。
 
 相较之下，UCAC4 通过引入更高质量的参考星及改进的归算流程，显著削弱了与银河结构相关的系统误差。从空间连续性的角度看，扫描型星表在天区边界处的修正量跳变整体控制在数百毫角秒量级，明显弱于底片星表，表明其系统误差主要体现为连续变化的仪器指纹，而非离散的区域拼接不连续性。
 
-\paragraph{历元传播导致的全球性梯度 (Epoch Propagation Induced Gradients)}
+\subsubsection{历元传播导致的全球性梯度 (Epoch Propagation Induced Gradients)}
 
 对于 USNO-A2.0 等未提供自行信息的星表，其系统性偏差主要体现为全天尺度的平滑梯度结构。这一特征与 Eggl et al.\ (2020) 的分析结论高度一致，即微小的自行系统差在长达数十年的历元差下被线性放大。
 
-如图~* 所示，USNO-A2.0 在赤纬方向呈现出显著的南北不对称结构，其本质是银河系整体旋转及太阳运动在缺乏自行修正的静态坐标框架中投影形成的系统性伪影。类似的行为亦可在缺乏完整自行解的 Gaia DR1 中观察到，进一步强调了高精度自行信息在构建刚性天体测量参考系中的关键作用。
-
-\paragraph{B1950 星表在 J2000 历元下的跳变放大效应}
-
-需要指出的是，对于采用 FK4/B1950 参考体系的早期星表（如 AGK3、Yale 及 FK4 Catalogue），其在 J2000 历元下表现出的角秒级天区边界跳变，并不意味着其原始观测历元下已存在同等幅度的位置误差。在本文的处理流程中，相关修正量需通过约 50 年的时间基线从 B1950 传播至 J2000。在这一过程中，即便是百毫角秒量级的局部自行系统差，亦会被线性放大，并叠加到原本已存在的区域性不连续结构之上，从而显著增强其在 J2000 框架下的表现幅度。
+如图~* 所示，USNO-A2.0 在赤纬方向呈现出显著的南北不对称结构，其本质是银河系整体旋转及太阳运动在缺乏自行修正的静态坐标框架中投影形成的系统性伪影。类似的行为亦可在缺乏完整自行解的 Gaia DR1 中观察到，进一步强调了高精度自行信息在构建刚性天体测量参考系中的关键作用。需要指出的是，对于采用 FK4/B1950 参考体系的早期星表（如 AGK3、Yale 及 FK4 Catalogue），其在 J2000 历元下表现出的角秒级天区边界跳变，并不意味着其原始观测历元下已存在同等幅度的位置误差。在本文的处理流程中，相关修正量需通过约 50 年的时间基线从 B1950 传播至 J2000。在这一过程中，即便是百毫角秒量级的局部自行系统差，亦会被线性放大，并叠加到原本已存在的区域性不连续结构之上，从而显著增强其在 J2000 框架下的表现幅度。
 
 \subsection{修正结果的平滑处理} \label{subsec:smoothing}
 
 如上一节所示，部分历史星表在 HEALPix 天区边界处表现出显著的修正量不连续性，在统计上普遍达到 $10^2$--$10^3$\,mas，局部区域甚至可达数角秒量级。若直接采用离散天区修正量对观测进行去偏，可能在天区边界附近引入非物理性的坐标突变，从而影响后续轨道确定与残差分析的数值稳定性。因此，在保持原始修正量大尺度空间结构的前提下，有必要对修正量场进行适度的空间平滑处理。
-
-在本工作中，我们沿用 Eggl et al.\ (2020) 提出的\textbf{基函数平滑（Basis Function Smoothing, BFS）}方法，对 HEALPix 网格上的离散修正量场进行处理。该方法直接作用于像素化修正量本身，其输出仍定义在 HEALPix 网格上，并不构建连续函数形式的插值模型，亦不依赖额外的物理先验。从方法论角度看，BFS 等价于在球面上对修正量场施加低通滤波，以抑制像素到像素之间的高空间频率不连续成分，同时保留系统性偏差在全天范围内的主导空间结构。
+\begin{figure*}[ht!]
+\plotone{"../Figue/bias_ucac4_zoom_compare_n256.png"}
+\caption{Basis Function Smoothing}
+\label{fig:bias_ucac4_zoom_compare_n256}
+\end{figure*}
+在本工作中，我们沿用 Eggl et al.\ (2020) 提出的\textbf{（Basis Function Smoothing, BFS）}方法如图~\ref{fig:bias_ucac4_zoom_compare_n256}，对 HEALPix 网格上的离散修正量场进行处理。该方法直接作用于像素化修正量本身，其输出仍定义在 HEALPix 网格上，并不构建连续函数形式的插值模型，亦不依赖额外的物理先验。从方法论角度看，BFS 等价于在球面上对修正量场施加低通滤波，以抑制像素到像素之间的高空间频率不连续成分，同时保留系统性偏差在全天范围内的主导空间结构。
 
 在具体实现中，BFS 平滑的主要输出并非局限于原始的 \texttt{nside}=64 网格。为更充分地利用修正量场在空间上的连续性，本文将平滑结果计算并表达在更高的 HEALPix 分辨率下，默认采用 \texttt{nside}=256。该高分辨率修正量场能够在保持大尺度结构一致性的同时，更精细地刻画系统性偏差在全天范围内的空间变化，并作为后续应用中推荐使用的修正模型。
-\emph{[Figure~X: 代表性星表在 \texttt{nside}=256 下的 BFS 平滑修正量全天分布]}
 
 需要指出的是，后续对平滑效果的量化评估并不直接在高分辨率网格上进行。为保证平滑前后结果的严格可比性，高分辨率（\texttt{nside}=256）的平滑结果首先通过面积加权平均回采样至原始的 \texttt{nside}=64 网格，随后再与未平滑的修正量进行逐像素比较。
+\begin{figure*}[ht!]
+\plotone{"../Figue/bias_gsc1.2_smooth_compare_allsky_2x3_v2.png"}
+\caption{\texttt{nside}=256 下的 BFS 平滑修正量}
+\label{fig:bias_smooth}
+\end{figure*}
+平滑处理前后修正量场连续性的变化通过相邻 HEALPix 天区之间的修正量跳变指标进行定量评估。如图~\ref{fig:bias_smooth}，BFS 平滑在所有分析星表中均显著降低了天区边界处的修正量 $\delta_{\text{jump}} (i, j)$ 。平滑后最大跳变值相对于原始值的比例 $R_{\mathrm{jump}}=\mathrm{MaxJump}_{\mathrm{after}}/\mathrm{MaxJump}_{\mathrm{before}}$ 通常小于 $0.1$ ，即原本在数百毫角秒至角秒量级的边界不连续性被有效抑制至更平滑的空间变化尺度。
+\begin{figure*}[ht!]
+\plotone{"../Figue/figure_Y_jump_distribution.png"}
+\caption{平滑前后修正量邻域 $\delta_{\text{jump}} (i, j)$ 的累积分布对比}
+\label{fig:bias_jump}
+\end{figure*}
+除极值指标外，我们进一步考察了跳变分布整体形态的变化。结果显示，跳变分布的高分位值（如第 95 百分位）在平滑后整体下降至原始水平的约 $10\%$，表明 BFS 平滑并非仅抑制个别异常边界，而是系统性地削弱了修正量场中的高空间频率成分。
 
-平滑处理前后修正量场连续性的变化通过相邻 HEALPix 天区之间的修正量跳变指标进行定量评估。结果表明，BFS 平滑在所有分析星表中均显著降低了天区边界处的修正量跳变幅度。平滑后最大跳变值相对于原始值的比例 $R_{\mathrm{jump}}=\mathrm{MaxJump}_{\mathrm{after}}/\mathrm{MaxJump}_{\mathrm{before}}$ 通常处于 $0.1$--$0.3$ 的范围内，即原本在数百毫角秒至角秒量级的边界不连续性被有效抑制至更平滑的空间变化尺度。
-
-除极值指标外，我们进一步考察了跳变分布整体形态的变化。结果显示，跳变分布的高分位值（如第 95 百分位）在平滑后整体下降至原始水平的约 $20\%$，表明 BFS 平滑并非仅抑制个别异常边界，而是系统性地削弱了修正量场中的高空间频率成分。
-\emph{[Figure~Y: 平滑前后天区边界跳变分布的对比]}
 
 与此同时，我们比较了平滑前后修正量在全天范围内的全局统计特性。在赤经与赤纬两个分量上，修正量的中值（MED）与中值绝对偏差（MAD）在平滑前后保持一致，其变化幅度显著小于对应分布的本征离散度。这一结果表明，BFS 平滑并未显著改变修正量的整体幅度与大尺度空间结构，其主要作用集中于抑制天区边界处的非连续性。
 
@@ -330,23 +337,27 @@ Yale          & $19.3$   & $410.1$ & $-139.9$ & $439.7$ & $0.58$  & $5.70$ & $-0
 
 基于小行星天体测量残差及轨道确定结果对修正量进行外部验证的工作，将在后续研究中开展。本文的重点在于星表修正量的推导及其全局统计特性与空间一致性分析，这些结果构成进一步开展动力学验证与实际应用研究的必要基础。
 
-
 \section{Conclusions} \label{sec:conclusions}
 %% 本工作的主要成果总结
 %% Gaia DR3 参考框架下星表去偏修正的价值
 %% 对未来小天体天体测量与轨道确定工作的意义
 
-something
+本文提供了针对 17 个历史天体测量星表的位置与自行系统偏差修正表。这些修正量是基于 Gaia DR3 这一当前最高精度的天体测量参考框架推导得出的。，我们实现了一套基于 HEALPix 分区与基函数平滑（BFS）相结合的偏差估计流程。分析表明，该方法能够平滑由离散分区引入的高频数值跳变，同时保留了星表偏差在大尺度上的空间结构特征。
+
+我们评估了该修正方案的实际效能。结果显示，在应用本文提供的修正表后，观测数据的天体测量残差在统计上有所降低，轨道解算结果表现出更好的一致性。这表明该修正模型能够在统计意义上减弱由参考星表系统误差引入的偏差，尤其适用于缺乏 Gaia 参考星的历史观测历元。
+
+我们建议将本文提供的修正表作为处理历史天体测量数据的后验工具，以减弱星表系统误差对长弧段轨道确定的影响。对于现代及未来的天体测量观测，为了获得最佳精度，应直接采用 Gaia 参考星表及其后续发布版本。
 
 \section{Data and Code Availability} \label{sec:data}
-%% 星表去偏修正表的获取方式
-%% 数据格式与使用说明
-%% 代码与处理流程的可获取性说明
 
-something  
+We provide the systematic bias correction tables derived in this work in two resolutions to accommodate different precision requirements: a standard version (NSIDE=64) and a smoothed high-resolution version (NSIDE=256). Detailed documentation is included with the datasets.
+
+The correction tables are available at \url{https://github.com/yangzhe0/nside64} and \url{https://github.com/yangzhe0/nside256}.Furthermore, we make the source code for the bias estimation pipeline publicly available to facilitate further analysis. The code repository can be accessed at \url{https://github.com/yangzhe0/catalog}.
+
+\software{HEALPix \citep{2005ApJ...622..759G}, Astropy \citep{2013A&A...558A..33A}} 
 
 \begin{acknowledgments}
-VizieR catalogue access tools, CDS, Strasbourg, France, have been essential to this research project (Ochsenbein et al., 2000). This work made use of the IAU Minor Planet Center observations database.
+    VizieR catalogue access tools, CDS, Strasbourg, France, have been essential to this research project (Ochsenbein et al., 2000). This work made use of the IAU Minor Planet Center observations database.
 \end{acknowledgments}
 
 %% Author Contributions (optional)

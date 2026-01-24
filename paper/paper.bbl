@@ -13,4 +13,12 @@
 \bibitem[{ {Astropy Collaboration} {et~al.}(2018){Astropy Collaboration}, {Price-Whelan}, \& {Sip{\H{o}}cz}}]{2018AJ....156..123A}
 {Astropy Collaboration}, {Price-Whelan}, A.~M., \& {Sip{\H{o}}cz}, B.~M. 2018, \bibinfo{title}{{The Astropy Project: Building an Open-science Project and Status of the v2.0 Core Package},} \aj, 156, 123, \dodoi{10.3847/1538-3881/aabc4f}
 
+% type= article
+\bibitem[{ {Astropy Collaboration} {et~al.}(2013){Astropy Collaboration}, {Robitaille}, \& {Tollerud}}]{2013A&A...558A..33A}
+{Astropy Collaboration}, {Robitaille}, T.~P., \& {Tollerud}, E.~J. 2013, \bibinfo{title}{{Astropy: A community Python package for astronomy},} \aap, 558, A33, \dodoi{10.1051/0004-6361/201322068}
+
+% type= article
+\bibitem[{K.~M. {G{\'o}rski} {et~al.}(2005){G{\'o}rski}, {Hivon}, {Banday}, {Wandelt}, {Hansen}, {Reinecke}, \& {Bartelmann}}]{2005ApJ...622..759G}
+{G{\'o}rski}, K.~M., {Hivon}, E., {Banday}, A.~J., {et~al.} 2005, \bibinfo{title}{{HEALPix: A Framework for High-Resolution Discretization and Fast Analysis of Data Distributed on the Sphere},} \apj, 622, 759, \dodoi{10.1086/427976}
+
 \end{thebibliography}
