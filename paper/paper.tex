@@ -14,8 +14,8 @@
 
 \title{Systematic Position and Proper Motion Corrections for Historical Astrometric Catalogs Based on Gaia DR3}
 
-\author{First Author}
-\affiliation{Your Institution, Department}
+\author{Zhe Yang}
+\affiliation{Shanghai University Of Engineering Science}
 \email{your.email@institution.edu}
 
 \author{Second Author}
@@ -38,33 +38,18 @@
 \keywords{Astrometry --- Astronomical catalogs --- Minor planets --- Gaia}
 
 \section{Introduction} \label{sec:intro}
-%% 小天体轨道确定对高质量光学天体测量数据的依赖
-%% 历史光学观测中参考星表多样性带来的系统误差问题
-%% 星表系统误差对轨道拟合残差和长期轨道预报的影响
+待补充！！
 
 小天体的精确轨道确定依赖于高质量的光学天体测量数据。Gaia 任务 \citep{2022ApJ...935..167A} 为天体测量提供了前所未有的精度。历史观测中使用了多种参考星表，这些星表之间存在系统性差异。
-%% 既有星表去偏工作的演进脉络
-%% - 基于 2MASS 的早期区域去偏
-%% - 引入自行修正的扩展方法
-%% - Gaia 时代星表去偏工作的出现
 
 早期的星表去偏工作基于 2MASS 等星表进行区域修正。随着 Gaia 数据的发布 \citep{2018AJ....156..123A}，星表去偏工作进入了新的阶段。
-%% 本工作的研究动机与目标
-%% - 利用 Gaia DR3 的最新精度优势
-%% - 扩展并统一多套历史星表的去偏修正
-%% - 提供可复用的数据产品与处理流程
 
 本工作利用 Gaia DR3 的最新精度优势，对多套历史星表进行系统性的位置与自行偏差修正，为小天体轨道确定提供可靠的数据基础。
 
 \section{Reference and Astrometric Catalogs} \label{sec:catalogs}
 \subsection{Gaia Catalog Series} \label{subsec:gaia}
-%% Gaia 任务的总体目标与天球参考框架地位
-%% Gaia 星表的数据发布机制
-%% - Gaia DR1、DR2、EDR3、DR3 的演进关系
-%% Gaia DR3 在天体测量精度、系统误差控制和一致性方面的特点
-%% 选用 Gaia DR3 作为统一参考星表的理由
 
-2013 年以来，Gaia 任务对全天空开展了持续的高精度天体测量观测，并已获得约 18 亿个天体源的位置和光度信息。Gaia 第二次数据发布（Gaia DR2）首次向公众提供了大规模包含位置、视差和自行在内的五参数天体测量解，使 Gaia 星表成为研究恒星运动、小天体天体测量以及外部星表系统误差的重要参考数据源。Eggl 等人（2020）基于 Gaia DR2 的五参数天体测量结果，构建了区域性星表修正模型，降低了历史星表在小天体测量中的系统偏差。
+自 2013 年以来，Gaia 任务持续对全天空开展高精度天体测量观测，目前已获得约 18 亿个天体源的位置与光度信息。Gaia 第二次数据发布（Gaia DR2）首次向公众提供了大规模包含位置、视差与自行在内的五参数天体测量解，使 Gaia 星表成为刻画外部星表系统误差与开展小天体天体测量研究的关键参考数据源。
 
 随后发布的 Gaia EDR3 与 Gaia DR3 在天体测量参数化形式上与 Gaia DR2 保持一致，但在观测时间基线、姿态重建、色差标定以及仪器模型等方面均进行了系统性改进。Gaia DR3 的天体测量解基于约 34 个月的观测数据，相较 Gaia DR2 的约 22 个月显著延长。官方验证结果表明（引用），与 Gaia DR2 相比，Gaia DR3 的视差形式不确定度典型降低约 20\%，自行形式不确定度降低约一倍以上，反映出天体测量精度的实质性提升。
 
@@ -85,16 +70,14 @@ Systematic noise floor (5p) & $\sim$0.3 mas              & Not quantified       
 \enddata
 \end{deluxetable}
 
-Gaia DR3 对五参数天体测量解的准入条件进行了更为严格的质量控制。大量在 Gaia DR2 中获得五参数解的源，在 Gaia DR3 中被重新分类为六参数解或仅位置解。验证结果显示（引用），天体测量不确定度在统计上仍近似服从高斯分布，其中五参数解的正态性明显优于六参数解，后者包含了较高比例的非单星系统。
-
-鉴于星表修正方法对参考星表误差统计特性的高度敏感性，本文延续 Eggl 等人（2020）的基本思路，选用 Gaia DR3 中质量受控的五参数天体测量解作为参考星表基础。
+Eggl 等人（2020）以 Gaia DR2 的五参数解为参考，构建了区域性星表修正模型，并系统刻画了多种历史星表在小天体天体测量中的主要系统偏差结构。我们的目标是在 Gaia 参考框架下扩展适用范围并提供可复用实现，侧重于在更稳定参考基准上对既有结论进行一致性检验与工程化补全。鉴于星表修正方法对参考星表误差统计特性的高度敏感性，本文延续 Eggl 等人（2020）的基本思路，选用 Gaia DR3 作为参考星。
 
 \subsection{Historical Astrometric Catalogs} \label{subsec:historical}
 %% 本工作纳入分析的历史星表总体范围
 %% 星表的观测年代分布与时间跨度
 %% 是否包含自行信息的分类
 %% 星表在小天体观测归档中的实际使用情况
-不同历史时期的光学观测依赖于多种恒星参考目录。这些目录在观测历元、覆盖范围、源密度和天文测量内容上有所不同，反映了地面和空间天文测量发展的连续阶段。下面对所涉及的星表作简要概述。
+不同历史时期的光学观测依赖于多种恒星参考目录。这些目录在观测历元、覆盖范围、源密度和天文测量内容上有所不同，反映了地面和空间天文测量发展的连续阶段。下面对本文所涉及的星表作简要概述。
 
 \begin{itemize}
     \item \textbf{Astrographic Catalogue:} \label{subsubsec:ac} The Astrographic Catalogue (AC) is one of the earliest large-scale photographic astrometric catalogs, produced within the framework of the international *Carte du Ciel* project initiated at the end of the 19th century. The project employed standardized astrographs to photograph the sky in declination zones assigned to different observatories, with the bulk of the observations carried out between the late 1890s and the first half of the 20th century. The AC comprises several million stellar positions derived from photographic plates, with typical positional accuracies at the few hundred milliarcsecond level. Owing to its very early mean epoch, AC primarily represents the reference framework of early photographic astrometry and provides the longest available astrometric time baseline among the catalogs considered in this work.
@@ -161,11 +144,11 @@ Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015           
 
 \subsection{Basic Framework of the Correction Method} \label{subsec:framework}
 
-本研究的方法总体上继承了 Chesley 等人 (2010)、Farnocchia 等人 (2015) 以及 Eggl 等人 (2020) 所提出的星表系统误差去偏框架。通过将全天球划分为等面积天区，在局部天区尺度上比较测试星表与参考星表中恒星的位置与自行差异，从而估计星表的系统性偏差。基于 Gaia 星表在天体测量精度方面的显著优势，本研究选用 Gaia DR3 作为统一的参考星表。
+研究方法总体上继承了 Chesley 等人 (2010)、Farnocchia 等人 (2015) 以及 Eggl 等人 (2020) 所提出的星表系统误差去偏框架。通过将全天球划分为等面积天区，在局部天区尺度上比较测试星表与参考星表中恒星的位置与自行差异，从而估计星表的系统性偏差。
 
 在实现过程中，不同星表之间首先被统一到一致的比较基准。参考星表与测试星表的恒星位置与自行均被转换至 J2000 历元，对于早期星表同时考虑参考系的统一。随后，采用 HEALPix 等面积像素化方案将全天球划分为 $49{,}152$ 个天区，对应单个天区面积约为 $0.8~\mathrm{deg}^2$，并在每个天区内对测试星表与 Gaia DR3 中的恒星源进行空间交叉匹配。
 
-恒星匹配在参考位置附近设定有限的搜索半径内完成（本文采用 $1''$ 的搜索范围），以识别潜在的匹配候选源。当存在多个候选匹配时，采用最近邻匹配策略，并结合 Farnocchia 等人 (2015) 提出的异常值剔除方法，仅保留角距离显著优于其他候选者的唯一匹配。同时施加一一对应约束，以避免单个 Gaia 恒星源与多个测试星表源发生关联，从而降低密集星场中伪匹配和多对一匹配对系统偏差统计的影响。
+恒星匹配在参考位置附近设定有限的搜索半径内完成，以识别潜在的匹配候选源。当存在多个候选匹配时，采用最近邻匹配策略，并结合 Farnocchia 等人 (2015) 提出的异常值剔除方法同时施加对应约束，以避免单个 Gaia 恒星源与多个测试星表源发生关联，从而降低密集星场中伪匹配和多对一匹配对系统偏差统计的影响。
 
 在完成恒星交叉匹配后，对每个天区内匹配恒星在位置与自行上的差异进行统计分析。所有差异均在 J2000.0 历元下计算，分别对应赤经与赤纬方向。对于每一个天区和每一个目标星表，估计其在 J2000.0 历元下的位置修正 $(\Delta\alpha_{2000}, \Delta\delta_{2000})$ 以及对应的自行修正 $(\Delta\mu_{\alpha}, \Delta\mu_{\delta})$。上述修正量采用稳健统计量（中位数）进行估计，以降低异常值和残余误匹配对结果的影响。
 
@@ -199,7 +182,7 @@ Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015           
 
 首先，依据各星表自身提供的信息，将其恒星坐标统一转换至 ICRS 参考系，并归算至 J2000.0 历元。对于已在 ICRS/J2000 框架下给出的星表，仅需利用 Gaia DR3 的自行参数，将参考星位置传播至对应历元后直接进行比较；对于历元或参考系不一致的历史星表，则需在匹配前完成必要的参考系转换与历元对齐。
 
-完成坐标系统一后，采用 HEALPix 等面积分区方案（\texttt{nside}=64）将全天划分为 49,152 个天区。在每个天区内，以 $1\mathrm{arcsec}$ 为搜索半径，对测试星表与 Gaia DR3 恒星源进行空间匹配，并施加对应约束。对每个天区内所有成功匹配的恒星，在 J2000.0 历元下分别计算赤经与赤纬方向的位置差分，以及对应的自行差分，并采用中位数作为该天区的系统修正量。
+完成坐标系统一后，采用 HEALPix 等面积分区方案（\texttt{nside}=64）将全天划分为 49,152 个天区。在每个天区内，以 $1\mathrm{arcsec}$ 为搜索半径，对测试星表与 Gaia DR3 恒星源进行空间匹配，仅保留角距离显著优于其他候选者的唯一匹配，并施加对应约束。对每个天区内所有成功匹配的恒星，在 J2000.0 历元下分别计算赤经与赤纬方向的位置差分，以及对应的自行差分，并采用中位数作为该天区的系统修正量。
 
 以 AGK1 星表为代表，其恒星坐标最初定义于 FK4 参考系下的 B1875.0 历元。为建立统一的比较基准处理时，首先依据 FK4（Newcomb）体系的标准定义，将坐标表达从 FK4@B1875.0 变换至 FK4@B1950.0；随后执行参考系转换（包括 E-terms 的处理与系统旋转），将恒星坐标从 FK4 转换至 ICRS。利用 Gaia DR3 提供的自行参数，将其恒星坐标回退至 B1950.0，并与经上述转换后的 AGK1 坐标进行差分。所得位置与自行差分随后统一折算至 J2000.0 历元，从而定义适用于该星表的系统修正模型。
 
