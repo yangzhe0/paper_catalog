@@ -1,0 +1,172 @@
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\href{#1}{#1}}
+\providecommand{\dodoi}[1]{doi:~\href{http://doi.org/#1}{\nolinkurl{#1}}}
+\providecommand{\doeprint}[1]{\href{http://ascl.net/#1}{\nolinkurl{http://ascl.net/#1}}}
+\providecommand{\doarXiv}[1]{\href{https://arxiv.org/abs/#1}{\nolinkurl{https://arxiv.org/abs/#1}}}
+
+% type= misc
+\bibitem[{ {Astronomische Gesellschaft}(1908){Astronomische Gesellschaft}}]{AGK1}
+{Astronomische Gesellschaft}. 1908, AGK1 Catalogue,, Catalog (B1875) documentation / CDS metadata
+
+% type= article
+\bibitem[{ {Astropy Collaboration}(2013){Astropy Collaboration}}]{Astropy2013}
+{Astropy Collaboration}. 2013, \bibinfo{title}{Astropy: A community Python package for astronomy,} A\&A, 558, A33, \dodoi{10.1051/0004-6361/201322068}
+
+% type= article
+\bibitem[{S.~R. Chesley {et~al.}(2010)Chesley, Baer, \& Monet}]{Chesley2010}
+Chesley, S.~R., Baer, J., \& Monet, D.~G. 2010, \bibinfo{title}{Treatment of star catalog biases in asteroid astrometric observations,} Icarus, 210, 158, \dodoi{10.1016/j.icarus.2010.06.003}
+
+% type= article
+\bibitem[{W.~S. Cleveland(1979)Cleveland}]{Cleveland1979}
+Cleveland, W.~S. 1979, \bibinfo{title}{Robust locally weighted regression and smoothing scatterplots,} J. Amer. Statist. Assoc., 74, 829
+
+% type= misc
+\bibitem[{T.~E. Corbin \& S.~E. Urban(1988)Corbin \& Urban}]{ACRS1988}
+Corbin, T.~E., \& Urban, S.~E. 1988, ACRS: Astrographic Catalog Reference Stars,, Catalog documentation / USNO release
+
+% type= article
+\bibitem[{J. Desmars(2015)Desmars}]{Desmars2015}
+Desmars, J. 2015, \bibinfo{title}{Asteroid orbit uncertainties,} A\&A, 584, A96
+
+% type= article
+\bibitem[{S. Eggl {et~al.}(2020)Eggl, Farnocchia, Chamberlin, \& Chesley}]{Eggl2020}
+Eggl, S., Farnocchia, D., Chamberlin, A.~B., \& Chesley, S.~R. 2020, \bibinfo{title}{Star catalog position and proper motion corrections in asteroid astrometry II: The Gaia era,} Icarus, 339, 113596, \dodoi{10.1016/j.icarus.2019.113596}
+
+% type= book
+\bibitem[{H. Eichhorn(1974)Eichhorn}]{Eichhorn1974}
+Eichhorn, H. 1974, Astronomy of Star Positions (W. H. Freeman)
+
+% type= book
+\bibitem[{ {European Space Agency}(1997){European Space Agency}}]{ESA1997Hipparcos}
+{European Space Agency}. 1997, The Hipparcos and Tycho Catalogues, ESA SP-1200 (ESA Publications Division)
+
+% type= article
+\bibitem[{C. Fabricius(2021)Fabricius}]{Fabricius2021}
+Fabricius, C. 2021, \bibinfo{title}{Gaia EDR3 reference frame,} A\&A, 649, A5
+
+% type= article
+\bibitem[{D. Farnocchia {et~al.}(2015)Farnocchia, Chesley, Chamberlin, \& Tholen}]{Farnocchia2015}
+Farnocchia, D., Chesley, S.~R., Chamberlin, A.~B., \& Tholen, D.~J. 2015, \bibinfo{title}{Star catalog position and proper motion corrections in asteroid astrometry,} Icarus, 245, 94, \dodoi{10.1016/j.icarus.2014.07.033}
+
+% type= article
+\bibitem[{A. Fey(2015)Fey}]{Fey2015}
+Fey, A. 2015, \bibinfo{title}{The Second Realization of the International Celestial Reference Frame,} AJ, 150, 58
+
+% type= misc
+\bibitem[{W. Fricke {et~al.}(1963)Fricke, Kopff, Nowacki, \& Strobel}]{FK4}
+Fricke, W., Kopff, A., Nowacki, H., \& Strobel, W. 1963, Fourth Fundamental Catalogue (FK4),, Fundamental catalog documentation
+
+% type= article
+\bibitem[{ {Gaia Collaboration}(2016){Gaia Collaboration}}]{GaiaDR1}
+{Gaia Collaboration}. 2016, \bibinfo{title}{Gaia Data Release 1,} A\&A, 595, A2, \dodoi{10.1051/0004-6361/201629272}
+
+% type= article
+\bibitem[{ {Gaia Collaboration}(2018){Gaia Collaboration}}]{GaiaDR2}
+{Gaia Collaboration}. 2018, \bibinfo{title}{Gaia Data Release 2: Summary of the contents and survey properties,} A\&A, 616, A1, \dodoi{10.1051/0004-6361/201833051}
+
+% type= article
+\bibitem[{ {Gaia Collaboration} {et~al.}(2023){Gaia Collaboration}, Vallenari, \& Brown}]{GaiaDR3}
+{Gaia Collaboration}, Vallenari, A., \& Brown, A.~G.~A. 2023, \bibinfo{title}{Gaia Data Release 3: Summary of the contents and survey properties,} A\&A, 674, A1, \dodoi{10.1051/0004-6361/202243940}
+
+% type= article
+\bibitem[{K.~M. G{\'o}rski {et~al.}(2005)G{\'o}rski, Hivon, \& Banday}]{Gorski2005}
+G{\'o}rski, K.~M., Hivon, E., \& Banday, A.~J. 2005, \bibinfo{title}{HEALPix: A Framework for High-Resolution Discretization and Fast Analysis of Data Distributed on the Sphere,} ApJ, 622, 759, \dodoi{10.1086/427976}
+
+% type= misc
+\bibitem[{O. Heckmann {et~al.}(1975)Heckmann, Dieckvoss, \& Kox}]{AGK3}
+Heckmann, O., Dieckvoss, W., \& Kox, H. 1975, AGK3 Catalogue,, Catalog documentation / CDS metadata
+
+% type= misc
+\bibitem[{D. Hoffleit \& W.~H. Warren(1991)Hoffleit \& Warren}]{Hoffleit1991BSC}
+Hoffleit, D., \& Warren, W.~H. 1991, The Bright Star Catalogue,, Catalog documentation
+
+% type= article
+\bibitem[{E. H{\o}g(2000)H{\o}g}]{Hog2000Tycho2}
+H{\o}g, E. 2000, \bibinfo{title}{The Tycho-2 Catalogue,} A\&A, 355, L27
+
+% type= article
+\bibitem[{L. Lindegren(2021)Lindegren}]{Lindegren2021EDR3}
+Lindegren, L. 2021, \bibinfo{title}{Gaia Early Data Release 3: The astrometric solution,} A\&A, 649, A2, \dodoi{10.1051/0004-6361/202039709}
+
+% type= article
+\bibitem[{C. Ma(1998)Ma}]{Ma1998ICRF}
+Ma, C. 1998, \bibinfo{title}{The International Celestial Reference Frame,} AJ, 116, 516
+
+% type= book
+\bibitem[{J. Meeus(1998)Meeus}]{Meeus1998}
+Meeus, J. 1998, Astronomical Algorithms, 2nd edn. (Richmond, VA: Willmann-Bell)
+
+% type= book
+\bibitem[{A. Milani \& G.~F. Gronchi(2010)Milani \& Gronchi}]{Milani2010}
+Milani, A., \& Gronchi, G.~F. 2010, Theory of Orbit Determination (Cambridge University Press)
+
+% type= misc
+\bibitem[{D.~G. Monet(1998)Monet}]{Monet1998USNOA2}
+Monet, D.~G. 1998, The USNO-A2.0 Catalogue,, US Naval Observatory catalog release / documentation
+
+% type= misc
+\bibitem[{J.~E. Morrison {et~al.}(2001)Morrison, Roeser, McLean, Lasker, \& Sturch}]{Morrison2001GSC12}
+Morrison, J.~E., Roeser, S., McLean, B., Lasker, B., \& Sturch, C. 2001, Guide Star Catalog Version 1.2,, Catalog release documentation (GSC 1.2)
+
+% type= article
+\bibitem[{C.~A. Murray(1989)Murray}]{Murray1989}
+Murray, C.~A. 1989, \bibinfo{title}{Transformation of coordinates between FK4 and FK5,} A\&A, 218, 325
+
+% type= article
+\bibitem[{I. Platais(1998)Platais}]{Platais1998}
+Platais, I. 1998, \bibinfo{title}{Astrometric reductions of photographic plates,} AJ, 116, 2556
+
+% type= article
+\bibitem[{R.~C. Qiao {et~al.}(2007)Qiao, Yan, \& Shen}]{Qiao2007}
+Qiao, R.~C., Yan, Y.~R., \& Shen, K.~X. 2007, \bibinfo{title}{Astrometric observations of Triton,} MNRAS, 376, 1707, \dodoi{10.1111/j.1365-2966.2007.11569.x}
+
+% type= misc
+\bibitem[{S. Roeser(1990)Roeser}]{Roeser1990}
+Roeser, S. 1990, Astrographic Catalogue,, VizieR/ADS catalog documentation (see CDS identifier in manuscript table)
+
+% type= article
+\bibitem[{S. Roeser \& U. Bastian(1991)Roeser \& Bastian}]{Roeser1991PPM}
+Roeser, S., \& Bastian, U. 1991, \bibinfo{title}{PPM Star Catalogue,} A\&AS, 74, 449
+
+% type= book
+\bibitem[{B.~W. Silverman(1986)Silverman}]{Silverman1986}
+Silverman, B.~W. 1986, Density Estimation for Statistics and Data Analysis (Chapman and Hall)
+
+% type= book
+\bibitem[{ {Smithsonian Astrophysical Observatory}(1966){Smithsonian Astrophysical Observatory}}]{SAO1966}
+{Smithsonian Astrophysical Observatory}. 1966, Smithsonian Astrophysical Observatory Star Catalog (Smithsonian Institution)
+
+% type= article
+\bibitem[{S.~E. Urban {et~al.}(1998)Urban, Corbin, \& Wycoff}]{Urban1998ACT}
+Urban, S.~E., Corbin, T.~E., \& Wycoff, G.~L. 1998, \bibinfo{title}{The ACT Reference Catalog,} AJ, 115, 1212
+
+% type= article
+\bibitem[{E. Vasiliev(2019)Vasiliev}]{Vasiliev2019}
+Vasiliev, E. 2019, \bibinfo{title}{Proper motion systematics in Gaia DR2,} MNRAS, 484, 2832
+
+% type= article
+\bibitem[{P. Vere{\v s}(2017)Vere{\v s}}]{Veres2017}
+Vere{\v s}, P. 2017, \bibinfo{title}{High-precision astrometry of asteroids with Pan-STARRS,} Icarus, 296, 139
+
+% type= book
+\bibitem[{G. Wahba(1990)Wahba}]{Wahba1990}
+Wahba, G. 1990, Spline Models for Observational Data (SIAM)
+
+% type= article
+\bibitem[{D. Yan {et~al.}(2020)Yan, Qiao, Cheng, \& Yu}]{Yan2020}
+Yan, D., Qiao, R.~C., Cheng, X., \& Yu, Y. 2020, \bibinfo{title}{Re-reduction of CCD observations of Triton in 1996--2006 with Gaia DR2,} Icarus, 343, 113662, \dodoi{10.1016/j.icarus.2020.113662}
+
+% type= article
+\bibitem[{N. Zacharias(2004)Zacharias}]{Zacharias2004UCAC2}
+Zacharias, N. 2004, \bibinfo{title}{The Second USNO CCD Astrograph Catalog (UCAC2),} AJ, 127, 3043
+
+% type= article
+\bibitem[{N. Zacharias(2013)Zacharias}]{Zacharias2013UCAC4}
+Zacharias, N. 2013, \bibinfo{title}{The Fourth USNO CCD Astrograph Catalog (UCAC4),} AJ, 145, 44
+
+% type= article
+\bibitem[{N. Zacharias(2017)Zacharias}]{Zacharias2017UCAC5}
+Zacharias, N. 2017, \bibinfo{title}{UCAC5: New proper motions using Gaia DR1,} AJ, 153, 166
+
+\end{thebibliography}
