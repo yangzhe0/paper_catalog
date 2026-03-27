@@ -1,0 +1,19 @@
+\section{Catalog Data}
+
+\subsection{Gaia Catalog Series}
+
+Since its launch in 2013, the Gaia mission has conducted all-sky high-precision astrometric observations, providing measurements for approximately 1.8 billion sources. The first data release (Gaia DR1) provided a limited five-parameter astrometric solution only for the TGAS subset, while the majority of sources lacked proper motion information. As such, DR1 represents a transitional catalog and is not suitable for high-precision astrometric calibration.
+
+Gaia DR2 marked the first large-scale release of a homogeneous five-parameter astrometric solution, significantly improving the consistency of the reference frame and establishing a foundation for systematic error analysis of external star catalogs and Solar System astrometry.
+
+Gaia EDR3 and DR3 maintain a consistent astrometric parameterization (with the DR3 astrometric solution based on EDR3), while benefiting from an extended observational time baseline of approximately 34 months and improved modeling of spacecraft attitude, chromatic effects, and instrument calibration. Compared to DR2, DR3 achieves a reduction of about 20\% in parallax formal uncertainties and more than a factor of two improvement in proper motion precision \citep{GaiaDR3}. In addition, the stability of the reference frame and the characterization of systematic errors are further improved. For these reasons, Gaia DR3 is adopted as the reference catalog in this work.
+
+\subsection{Historical Astrometric Catalogs}
+
+In contrast to \citet{Eggl2020}, which focuses on star catalogs used in asteroid astrometry, this work targets catalogs that are frequently employed in natural satellite observations, with the inclusion of additional historical catalogs relevant to this context.
+
+Optical astrometric observations from different epochs rely on a variety of reference star catalogs that differ significantly in epoch, sky coverage, source density, and available astrometric parameters. The catalogs considered in this study are selected based on their prevalence in historical observations of natural satellites and their representation of major astrometric reference systems.
+
+From an astrometric perspective, these catalogs can be broadly classified into three categories. Early photographic catalogs (e.g., AC, AGK1, USNO-A, GSC) generally lack proper motion information and can introduce time-dependent positional errors. Intermediate catalogs (e.g., PPM, ACT, and the UCAC series) provide partial or improved proper motion measurements but may still exhibit regional systematic biases. High-precision catalogs (e.g., Hipparcos and Tycho-2) offer a stable reference frame but are limited by relatively low source density.
+
+These differences in astrometric content and accuracy lead to distinct patterns of systematic errors among catalogs. These characteristics motivate the need for catalog debiasing within a unified reference frame. A summary of the catalogs adopted in this work is provided in Table~\ref{tab:catalog_overview}.

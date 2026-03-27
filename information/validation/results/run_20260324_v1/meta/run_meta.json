@@ -1,0 +1,9 @@
+{
+  "generated_utc": "2026-03-24T16:43:07.402553+00:00",
+  "input_file": "/data/sues01/Ancoj/result/absolute_03_correction.csv",
+  "report_file": "/data/sues01/Ancoj/result/absolute_03_report.csv",
+  "total_rows": 12098,
+  "paired_rows": 11930,
+  "scenario_count": 5,
+  "showcase_file_count": 4
+}

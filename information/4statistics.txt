@@ -1,0 +1,68 @@
+\subsection{Statistical Properties of the Corrections} \label{subsec:distribution}
+
+The global statistics in Table~\ref{tab:global_corrections_j2000} show a clear hierarchy in the amplitudes of the derived catalog corrections. Modern high-precision catalogs, such as Gaia DR2, Hipparcos, Tycho-2, UCAC2, and UCAC4, exhibit median position and proper motion corrections at the milliarcsecond level with small dispersions. In contrast, older photographic catalogs and catalogs without reliable proper motions show significantly larger offsets and broader sky-to-sky scatter, with typical position systematics reaching or exceeding $10^2$~mas.
+
+USNO-A2.0 provides a representative example. Its median corrections at J2000.0 are $68.6$~mas in $\Delta\alpha_{J2000}$ and $156.8$~mas in $\Delta\delta_{J2000}$, with MAD values of $107.6$~mas and $124.6$~mas, respectively. The corresponding proper motion corrections are also non-negligible, reaching $1.36$~mas\,yr$^{-1}$ in $\Delta\mu_{\alpha *}$ and $3.31$~mas\,yr$^{-1}$ in $\Delta\mu_{\delta}$.
+
+Figure~\ref{fig:hist_usnoa2} shows the distributions of the correction terms for USNO-A2.0 across all HEALPix regions. The position components exhibit pronounced global offsets and non-Gaussian distributions, while the proper motion corrections display asymmetric behavior between right ascension and declination. These characteristics indicate that the corrections reflect coherent systematic differences with respect to the Gaia DR3 reference frame rather than random noise.
+
+\begin{figure}[ht!]
+\plotone{../Figue/fig_bias_usno_a2_j2000.png}
+\caption{Statistical distributions of the correction terms for the USNO-A2.0 star catalog.}
+\label{fig:hist_usnoa2}
+\end{figure}
+
+
+\subsection{Spatial Structure of the Systematic Biases} \label{subsec:spatial}
+
+The correction fields exhibit clear spatial organization over the celestial sphere. As shown in Figure~\ref{fig:bias_usno_a2_2x2}, the USNO-A2.0 corrections display large-scale gradients together with localized discontinuities. Similar spatial patterns are observed in other historical catalogs, although their morphology differs.
+
+These structures demonstrate that the correction fields are dominated by spatially correlated systematics. In particular, the presence of coherent large-scale patterns indicates that the derived corrections trace intrinsic catalog biases rather than stochastic matching errors. Consequently, global summary statistics alone are insufficient to characterize the full behavior of catalog systematics.
+
+\begin{figure}[ht!]
+\plotone{../Figue/bias_usno_a2_2x2.png}
+\caption{All-sky spatial distributions of the correction terms for the USNO-A2.0 star catalog.}
+\label{fig:bias_usno_a2_2x2}
+\end{figure}
+
+
+\subsection{Origin of the Bias Patterns} \label{subsec:interpretation}
+
+The morphology of the correction fields reflects the observational and reduction characteristics of the underlying catalogs. Three representative classes can be identified.
+
+Photographic catalogs (e.g., GSC~1.2, AGK3, SAO, and Yale) show block-like or discontinuous structures associated with independent plate-based reductions\citep{Platais1998,Eichhorn1974}. This behavior can be quantified through the inter-pixel discontinuity
+\begin{equation}
+\delta_{\mathrm{disc}}(i,j)=|V(i)-V(j)|,
+\end{equation}
+where $i$ and $j$ denote adjacent HEALPix pixels and $V$ represents a correction component. For these catalogs, more than 97\% of neighboring regions exhibit discontinuities exceeding $100$~mas, and a substantial fraction reach the arcsecond level, indicating globally inconsistent plate-to-plate calibrations.
+
+Catalogs based on scanning strategies (e.g., UCAC2) exhibit stripe-like patterns aligned with the scan direction\citep{Zacharias2017UCAC5}, with amplitudes enhanced in crowded regions. This behavior is largely mitigated in UCAC4, consistent with improved reduction procedures.
+
+Catalogs lacking reliable proper motion information (e.g., USNO-A2.0) display smooth large-scale gradients in the propagated position corrections. These patterns arise from the accumulation of proper-motion mismatches over long temporal baselines\citep{Vasiliev2019}.
+
+These results show that both the amplitude and morphology of the correction fields are controlled by the intrinsic properties of the source catalogs.
+
+
+\subsection{Smoothing and Practical Implementation} \label{subsec:smoothing}
+\begin{figure}[ht!]
+\plotone{"../Figue/bias_ucac4_zoom_compare_n256.png"}
+\caption{Example of basis function smoothing applied to the correction field.}
+\label{fig:bias_ucac4_zoom_compare_n256}
+\end{figure}
+\begin{figure}[ht!]
+\plotone{"../Figue/figure_Y_jump_distribution.png"}
+\caption{Cumulative distributions of inter-pixel discontinuities before and after smoothing.}
+\label{fig:bias_jump}
+\end{figure}
+For practical applications, a higher-resolution correction map is desirable to better represent the spatial structure of catalog systematics. However, directly estimating corrections on a finer grid would significantly reduce the number of matched stars per pixel, thereby degrading the statistical robustness of the median estimates. In this regime, small-scale variations are increasingly dominated by sampling noise rather than genuine systematic patterns.
+
+To balance spatial resolution and statistical stability, we follow the approach of Eggl et al. (2020). Instead of recomputing corrections on a finer grid, we reconstruct a continuous correction field from the robust coarse-grid estimates using radial basis function (RBF) interpolation, and provide the final correction product on a higher-resolution HEALPix grid with \texttt{nside}=256.
+
+In the implementation, the correction at a target sky position is obtained as a weighted combination of neighboring HEALPix pixels. The neighborhood is defined by an angular distance criterion, and only pixels within a prescribed angular scale are used as support points. The weights decrease monotonically with angular distance to ensure locality, such that nearby pixels contribute more strongly to the reconstructed value. All weights are normalized to unity to ensure numerical stability. In addition, pixels with insufficient matched stars are excluded from the reconstruction to avoid unstable local estimates.
+
+It is important to note that the corrections on the \texttt{nside}=256 grid are not directly estimated from observations at that resolution, but are reconstructed from statistically robust coarse-grid estimates. This procedure suppresses sampling noise at small scales while providing a higher-resolution representation suitable for practical use. At the same time, it reduces artificial discontinuities introduced by the original pixelized representation.
+
+The effect of the smoothing procedure is illustrated in Figure~\ref{fig:bias_ucac4_zoom_compare_n256}. Compared to the original pixel-based corrections, the reconstructed field exhibits a continuous spatial variation, and the block-like structures at small scales are effectively suppressed. At the same time, the large-scale spatial patterns are preserved, indicating that the smoothing primarily reduces noise rather than altering the underlying systematics.
+
+To quantify this improvement, we define an inter-pixel discontinuity metric $\delta_{\mathrm{disc}}$ as the difference in correction values between adjacent HEALPix pixels. The cumulative distributions before and after smoothing are shown in Figure~\ref{fig:bias_jump}. The high-percentile and maximum values of $\delta_{\mathrm{disc}}$ are reduced by approximately one order of magnitude, demonstrating a significant improvement in spatial continuity.
+

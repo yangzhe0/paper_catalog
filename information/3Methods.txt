@@ -1,0 +1,69 @@
+\section{Catalog Debiasing Methodology}
+
+\subsection{Overview of the Method}
+
+The overall procedure consists of five main steps: (1) transforming all catalogs to a common reference frame and comparison epoch; (2) partitioning the celestial sphere using a HEALPix tessellation; (3) performing cross-matching between the target catalog and Gaia DR3 within each sky region; (4) estimating local systematic offsets in position and proper motion; and (5) constructing a correction model and generating tabulated corrections.
+
+The method takes a target star catalog and Gaia DR3 as input and produces HEALPix-based correction parameters, including positional offsets $(\Delta \alpha_{2000}, \Delta \delta_{2000})$ and proper motion biases $(\Delta \mu_{\alpha *}, \Delta \mu_{\delta})$, where $\alpha_* \equiv \alpha \cos\delta$.
+
+\subsection{Epoch Propagation and Frame Transformation}
+
+To ensure consistency, all catalogs are transformed to a common reference frame and comparison epoch. J2000.0 is adopted as the comparison epoch since it is the reference epoch for most historical catalogs considered in this work.
+
+For catalogs already in the ICRS, positions are propagated to epoch J2000.0 when proper motion information is available. For catalogs lacking proper motions, Gaia positions are propagated to the catalog epoch, and the comparison is performed at that epoch.
+
+For catalogs not originally in the ICRS (e.g., FK4), coordinates are first transformed into the ICRS, and matching is carried out at their native epochs. This procedure ensures that the measured differences primarily reflect intrinsic catalog systematics.
+
+Gaia DR3 adopts a reference epoch of J2016.0. Source positions are propagated to the desired comparison epoch using the published astrometric parameters (positions, proper motions, and parallaxes). Radial velocities are included when available and assumed to be zero otherwise.
+
+\subsection{Sky Partitioning and Cross-Matching}
+
+After unifying the reference frame and epoch, the celestial sphere is divided using a HEALPix tessellation \citep{Gorski2005} with $N_{\rm side}=64$, corresponding to $N_{\rm pix}=49{,}152$ equal-area tiles, each covering approximately $0.839\ {\rm deg}^2$.
+
+Cross-matching is performed within each tile. For each source in the target catalog, Gaia DR3 candidates are searched within a radius of $1''$. The matching criteria are defined as follows:
+
+(1) If a single candidate is found, the match is accepted.
+
+(2) If multiple candidates are present, the nearest neighbor is accepted only if
+\[
+d_1 < 0.2\, d_2,
+\]
+where $d_1$ and $d_2$ are the angular distances to the nearest and second-nearest neighbors, respectively.
+
+(3) If no candidate is found, the source is rejected.
+
+All matches are performed using coordinates expressed in the same reference frame and epoch.
+
+\subsection{Bias Estimation and Correction Model}
+
+For each matched pair, the differences in position and proper motion are defined as
+\[
+\Delta \alpha_* = (\alpha_{\rm cat}-\alpha_{\rm Gaia})\cos\delta,\quad
+\Delta \delta = \delta_{\rm cat}-\delta_{\rm Gaia},
+\]
+\[
+\Delta \mu_{\alpha *} = \mu_{\alpha *,{\rm cat}}-\mu_{\alpha *,{\rm Gaia}},\quad
+\Delta \mu_{\delta} = \mu_{\delta,{\rm cat}}-\mu_{\delta,{\rm Gaia}}.
+\]
+
+Here $\alpha_* = \alpha \cos\delta$, and the same convention applies to $\mu_{\alpha *}$. For catalogs without proper motion information, $\mu_{\rm cat}$ is set to zero.
+
+Within each HEALPix tile, the median of these differences is computed and expressed at epoch J2000.0, yielding the systematic correction parameters:
+\[
+(\Delta \alpha_{2000}, \Delta \delta_{2000}, \Delta \mu_{\alpha *}, \Delta \mu_{\delta}).
+\]
+
+These quantities represent local catalog systematics at J2000.0. The use of median statistics provides robustness against outliers without requiring additional rejection criteria.
+
+For an arbitrary epoch $t$, the corrections are given by a linear model:
+\[
+\Delta \alpha_*(t) = \Delta \alpha_{2000} + \Delta \mu_{\alpha *}\,\Delta t,\quad
+\Delta \delta(t) = \Delta \delta_{2000} + \Delta \mu_{\delta}\,\Delta t,
+\]
+where $\Delta t = t - 2000.0$.
+
+\subsection{Correction Tables and Application}
+
+The resulting corrections are stored on a HEALPix grid. Each tile is associated with a set of parameters, including the HEALPix index, $\Delta \alpha_{2000}$, $\Delta \delta_{2000}$, $\Delta \mu_{\alpha *}$, and $\Delta \mu_{\delta}$.
+
+In practical applications, the corresponding tile is identified from the sky position of an observation, and the associated parameters are used to compute $\Delta \alpha_*(t)$ and $\Delta \delta(t)$. The corrected positions are obtained by applying these offsets, thereby placing the observations onto the Gaia DR3 reference frame.

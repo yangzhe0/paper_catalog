@@ -1,0 +1,25 @@
+\section{\section{Conclusions} \label{sec:conclusions}
+
+Using Gaia DR3 as the astrometric reference, we derive systematic position and proper motion corrections for 17 historical star catalogs. A unified catalog debiasing framework is developed based on HEALPix sky partitioning combined with Basis Function Smoothing (BFS), enabling the construction of continuous all-sky correction fields while suppressing artificial discontinuities introduced by discrete tiling. The resulting model preserves the intrinsic large-scale structure of catalog systematics while removing non-physical small-scale variations.
+
+Validation using both plate re-reduction benchmarks and ephemeris comparisons shows that the debiased data exhibit reduced systematic residuals while maintaining the original dispersion of the observations. This demonstrates that the proposed approach effectively mitigates catalog-dependent systematic offsets without degrading the stochastic error component, leading to improved consistency in orbit determination solutions\citep{Desmars2015}. The improvement is particularly relevant for historical observations that cannot be directly reduced in the Gaia reference frame.
+
+The correction tables provided in this work are intended as an a posteriori debiasing tool for historical astrometric data, supporting more reliable long-arc orbit determinations. For modern observations, direct reduction in the Gaia reference frame remains the optimal approach.
+
+\section{Data and Code Availability} \label{sec:data}
+
+The catalog debiasing tables are provided at two resolutions to support different use cases: a standard grid with \texttt{NSIDE}=64 and a smoothed high-resolution grid with \texttt{NSIDE}=256. Documentation describing the data structure and usage is included with the released products.
+
+The correction tables are publicly available at \url{https://github.com/yangzhe0/nside64} and \url{https://github.com/yangzhe0/nside256}. The full pipeline for bias estimation and correction is also released for reproducibility and further application at \url{https://github.com/yangzhe0/catalog}.} \label{sec:conclusions}
+
+Using Gaia DR3 as the astrometric reference, we derive systematic position and proper motion corrections for 17 historical star catalogs. A unified catalog debiasing framework is developed based on HEALPix sky partitioning combined with Basis Function Smoothing (BFS), enabling the construction of continuous all-sky correction fields while suppressing artificial discontinuities introduced by discrete tiling. The resulting model preserves the intrinsic large-scale structure of catalog systematics while removing non-physical small-scale variations.
+
+Validation using both plate re-reduction benchmarks and ephemeris comparisons shows that the debiased data exhibit reduced systematic residuals while maintaining the original dispersion of the observations. This demonstrates that the proposed approach effectively mitigates catalog-dependent systematic offsets without degrading the stochastic error component, leading to improved consistency in orbit determination solutions\citep{Desmars2015}. The improvement is particularly relevant for historical observations that cannot be directly reduced in the Gaia reference frame.
+
+The correction tables provided in this work are intended as an a posteriori debiasing tool for historical astrometric data, supporting more reliable long-arc orbit determinations. For modern observations, direct reduction in the Gaia reference frame remains the optimal approach.
+
+\section{Data and Code Availability} \label{sec:data}
+
+The catalog debiasing tables are provided at two resolutions to support different use cases: a standard grid with \texttt{NSIDE}=64 and a smoothed high-resolution grid with \texttt{NSIDE}=256. Documentation describing the data structure and usage is included with the released products.
+
+The correction tables are publicly available at \url{https://github.com/yangzhe0/nside64} and \url{https://github.com/yangzhe0/nside256}. The full pipeline for bias estimation and correction is also released for reproducibility and further application at \url{https://github.com/yangzhe0/catalog}.
