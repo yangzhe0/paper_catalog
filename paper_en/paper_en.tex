@@ -1,4 +1,4 @@
-\documentclass[preprint]{aastex701}
+\documentclass[default]{aastex701}
 \usepackage{amsmath}
 
 % | 模式           | 用途   | 特点          |
@@ -58,7 +58,7 @@
 
 \begin{abstract}
 
-Precise orbit determination of natural satellites relies on the consistent combination of heterogeneous astrometric observations spanning long time intervals, but the use of different reference star catalogs introduces spatially correlated systematic biases that degrade data consistency and limit orbit accuracy. In this work, we construct a unified correction framework based on the Gaia DR3 reference frame and derive position and proper motion corrections for 17 star catalogs commonly used in natural satellite astrometry. The method employs rigorous epoch propagation, HEALPix-based spatial partitioning, and robust median statistics to estimate local systematics, and reconstructs a continuous correction field using radial basis function interpolation. The derived corrections reveal a clear hierarchy among the catalogs: modern catalogs exhibit systematics at the milliarcsecond level, whereas older photographic catalogs show position offsets exceeding 100~mas, accompanied by pronounced spatial structures. This framework provides a consistent basis for reprocessing historical observations and helps improve the astrometric positioning accuracy of natural satellites, thereby enhancing the precision of orbit determination and dynamical studies for natural satellite systems.
+Precise orbit determination of natural satellites relies on the consistent combination of heterogeneous astrometric observations spanning long time intervals. However, the use of different reference star catalogs introduces spatially correlated systematic biases that degrade data consistency and limit orbit accuracy. In this work, we construct a unified correction framework based on the Gaia DR3 reference frame and derive position and proper motion corrections for 17 star catalogs commonly used in natural satellite astrometry. The method employs rigorous epoch propagation, HEALPix-based spatial partitioning, and robust median statistics to estimate local systematics, and reconstructs a continuous correction field using radial basis function interpolation. The derived corrections reveal a clear hierarchy among the catalogs: modern catalogs exhibit systematics at the milliarcsecond level, whereas older photographic catalogs show position offsets reaching the hundred-mas to arcsecond level. This framework provides a consistent basis for reprocessing historical observations and improves the astrometric accuracy of natural satellite observations, thereby enhancing the precision of orbit determination and dynamical studies of natural satellite systems.
 
 \end{abstract}
 
@@ -70,13 +70,13 @@ Precise orbit determination of natural satellites is fundamental to studies of p
 
 A large number of astrometric positions of natural satellites have been compiled in the Natural Satellites Data Center (NSDC), maintained by the Laboratoire Temps Espace (LTE) at Paris Observatory. Owing to the diversity of data sources and the long temporal coverage, inconsistencies related to the use of different reference star catalogs have become increasingly evident when these observations are combined for orbit determination. Differences in reference frames, regional systematic biases, and proper motion accuracy among catalogs introduce systematic biases in the reduced positions, which can accumulate over time and degrade the overall consistency of orbital solutions.
 
-Since 1986, we have conducted continuous observations of natural satellites in the Jovian, Saturnian, Uranian, and Neptunian systems, yielding more than 50,000 astrometric positions, a portion of which has been incorporated into the NSDC database. Based on these data, a series of studies has been carried out on the astrometric reduction and orbit determination of Saturnian satellites, the major Uranian satellites, and the irregular satellite Phoebe, as well as on the digitization and reduction of historical natural-satellite plates \citep{Qiao1999,Shen2002,Qiao2006Phoebe,Yan2016Plates}. These studies demonstrate that reprocessing historical observations within a uniform high-precision reference frame is an effective approach to improving data consistency.
+Since 1986, we have conducted continuous observations of natural satellites in the Jovian, Saturnian, Uranian, and Neptunian systems, yielding more than 50,000 astrometric positions, a portion of which has been incorporated into the NSDC database. Based on these data, a series of studies has been carried out on the astrometric reduction and orbit determination of Saturnian satellites, the major Uranian satellites, and the irregular satellite Phoebe, as well as on the digitization and reduction of historical natural satellite plates \citep{Qiao1999,Shen2002,Qiao2006Phoebe,Yan2016Plates}. These studies demonstrate that reprocessing historical observations within a uniform high-precision reference frame is an effective approach to improving data consistency.
 
-Systematic biases in star catalogs have been investigated extensively. Early analyses of asteroid astrometry showed that optical observations contain non-negligible systematic biases \citep{Carpino2003}. \citet{Chesley2010} identified regional systematic biases through residual analysis and introduced a spatially resolved debiasing scheme using 2MASS as the reference catalog \citep{Skrutskie2006}. \citet{Tholen2013b} further showed that the lack of proper motion information in 2MASS can generate regional signatures in high-precision astrometry, motivating the proper-motion-corrected debiasing scheme developed by \citet{Farnocchia2015} with a PPMXL-based reference \citep{Roeser2010}. More recently, \citet{Eggl2020} utilized the Gaia DR2 reference frame to derive position and proper motion corrections for 26 astrometric catalogs used in asteroid astrometry. However, the catalog selection in that work is tailored to asteroid observations and does not cover several catalogs prevalent in historical natural-satellite astrometry, particularly those spanning earlier observational epochs. As the raw observational data are in many cases no longer available for re-reduction, applying catalog corrections to the existing reduced positions is the only viable means of recovering their astrometric accuracy. Taken together, these studies establish that catalog debiasing within a common reference frame is essential for improving the consistency of astrometric data.
+Systematic biases in star catalogs have been investigated extensively. Early analyses of asteroid astrometry showed that optical observations contain non-negligible systematic biases \citep{Carpino2003}. \citet{Chesley2010} identified regional systematic biases through residual analysis and introduced a spatially resolved debiasing scheme using 2MASS as the reference catalog \citep{Skrutskie2006}. \citet{Tholen2013b} further found that the absence of proper motions in 2MASS produces regional position offsets in high-precision astrometry. This motivated the proper-motion-corrected scheme of \citet{Farnocchia2015}, which uses PPMXL as the reference catalog \citep{Roeser2010}. More recently, \citet{Eggl2020} utilized the Gaia DR2 reference frame to derive position and proper motion corrections for 26 astrometric catalogs used in asteroid astrometry. However, the catalog selection in that work is tailored to asteroid observations and does not cover several catalogs prevalent in historical natural satellite astrometry, particularly those spanning earlier observational epochs. As the raw observational data are in many cases no longer available for reduction, applying catalog corrections to the existing reduced positions is the only viable means of recovering their astrometric accuracy. Taken together, these studies establish that catalog debiasing within a common reference frame is essential for improving the consistency of astrometric data.
 
-In the context of natural satellites, similar approaches have only recently begun to be explored. For example, \citet{Yuan2021} performed a uniform reanalysis of Neptunian satellite observations based on the Gaia DR2 reference frame and demonstrated the applicability of catalog debiasing methods to satellite astrometry. In addition, our group has conducted Gaia-based re-reductions of selected historical observations, confirming the effectiveness of this approach in improving astrometric consistency. Nevertheless, a systematic debiasing framework covering the full range of reference catalogs commonly used in natural-satellite astrometry is still lacking.
+In the context of natural satellites, similar approaches have only recently begun to be explored. For example, \citet{Yuan2021} performed a uniform reanalysis of Neptunian satellite observations based on the Gaia DR2 reference frame and demonstrated the applicability of catalog debiasing methods to satellite astrometry. In addition, our group has conducted Gaia-based reduction of selected historical observations, confirming the effectiveness of this approach in improving astrometric consistency. Nevertheless, a systematic debiasing framework covering the full range of reference catalogs commonly used in natural-satellite astrometry is still lacking.
 
-In this work, we adopt Gaia DR3 as the common reference frame and derive systematic position and proper-motion corrections for 17 star catalogs identified as the most comprehensively used reference catalogs in historical natural-satellite astrometry, based on a systematic survey of the NSDC archive. Building upon the catalog debiasing framework of \citet{Eggl2020}, we introduce adaptations tailored to natural-satellite astrometry, including refined cross-matching criteria and additional validation steps. The resulting correction framework provides a consistent basis for reprocessing historical observations and supports improved astrometric accuracy of natural satellite observations, thereby enhancing the precision of orbit determination and dynamical studies of natural satellite systems.
+In this work, we adopt Gaia DR3 as the common reference frame and derive position and proper-motion corrections for 17 historical star catalogs. These 17 catalogs are identified, based on a systematic survey of the NSDC archive, as the most prevalent reference catalogs in historical natural-satellite astrometry. Building upon the catalog debiasing framework of \citet{Eggl2020}, we introduce adaptations tailored to natural satellite astrometry, including refined cross-matching criteria and additional validation steps. The resulting correction framework provides a consistent basis for reprocessing historical observations and supports improved astrometric accuracy of natural satellite observations, thereby enhancing the precision of orbit determination and dynamical studies of natural satellite systems.
 
 \section{Reference and Astrometric Catalogs} \label{sec:catalogs}
 
@@ -84,17 +84,17 @@ In this work, we adopt Gaia DR3 as the common reference frame and derive systema
 
 Since 2013, the Gaia mission has provided a dense all-sky optical astrometric reference frame. Gaia DR1 contained astrometric measurements for more than one billion sources, but a full five-parameter solution was available only for the Tycho--Gaia Astrometric Solution (TGAS) subset, while most sources lacked proper motion information \citep{GaiaDR1,Lindegren2016}. Gaia DR2 subsequently provided homogeneous five-parameter astrometric solutions for a much larger number of sources and became an important reference for studies of systematic errors in historical star catalogs and Solar System astrometry \citep{GaiaDR2}.
 
-In this work, Gaia DR3 is adopted as the reference catalog for deriving position and proper-motion corrections. The Gaia DR3 astrometric solution is based on Gaia EDR3 and benefits from a longer observational time span and improved modelling of the spacecraft attitude, chromaticity, and instrumental calibration \citep{GaiaDR3,Lindegren2021EDR3}. Compared with earlier Gaia releases, Gaia DR3 provides improved astrometric precision and reference-frame stability, making it more suitable for quantifying local systematic differences between historical reference catalogs and a common modern astrometric frame \citep{Fabricius2021}.
+In this work, Gaia DR3 is adopted as the reference catalog for deriving position and proper motion corrections. The Gaia DR3 astrometric solution is based on Gaia EDR3 and benefits from a longer observational time span and improved modelling of the spacecraft attitude, chromaticity, and instrumental calibration \citep{GaiaDR3,Lindegren2021EDR3}. Compared with earlier Gaia releases, Gaia DR3 provides improved astrometric precision and reference frame stability, making it more suitable for quantifying local systematic differences between historical reference catalogs and a common modern astrometric frame \citep{Fabricius2021}.
 
-Residual systematic effects still exist in Gaia EDR3/DR3, including parallax biases and small-scale spatial systematics \citep{Lindegren2021Systematics}. However, for the historical catalogs considered in this work, the dominant correction signals arise from catalog-dependent position and proper-motion biases rather than from the residual systematics of Gaia DR3 itself. Gaia DR3 is therefore used as the practical reference frame for constructing the catalog corrections.
+Residual systematic effects still exist in Gaia EDR3/DR3, including parallax biases and small-scale spatial systematics \citep{Lindegren2021Systematics}. However, for the historical catalogs considered in this work, the dominant correction signals arise from catalog-dependent position and proper motion biases rather than from the residual systematics of Gaia DR3 itself. Gaia DR3 is therefore used as the practical reference frame for constructing the catalog corrections.
 
 \subsection{Historical Astrometric Catalogs} \label{subsec:historical}
 
-This work targets catalogs that are frequently employed in historical natural-satellite observations, including older releases that were prevalent before high-precision space-based astrometry became available. This is particularly true for older satellite reductions based on Guide Star Catalog releases \citep{Lasker1999,Morrison2001GSC12}.
+This work targets catalogs that are frequently employed in historical natural satellite observations, including older releases that were prevalent before high-precision space-based astrometry became available.
 
-Optical astrometric observations from different epochs rely on a variety of reference star catalogs that differ significantly in epoch, sky coverage, source density, and available astrometric parameters. The catalogs included in this study are those most prevalently used in historical natural-satellite observations, as identified from a systematic survey of the NSDC archive.
+Optical astrometric observations from different epochs rely on a variety of reference star catalogs that differ significantly in epoch, sky coverage, source density, and available astrometric parameters. The catalogs included in this study are those most prevalently used in historical natural satellite observations, as identified from a systematic survey of the NSDC archive.
 
-Early photographic catalogs, such as USNO-A2.0 and GSC~1.2, generally lack proper motion information and can introduce time-dependent position offsets \citep{Monet1998USNOA2,Morrison2001GSC12}. Intermediate catalogs, including PPM, ACT, and the UCAC series, provide improved positional accuracy and proper-motion coverage but may still exhibit regional systematic biases \citep{Roeser1991PPM,Urban1998ACT,Zacharias2004UCAC2,Zacharias2013UCAC4}. High-precision catalogs such as Hipparcos and Tycho-2 provide a stable and well-characterized reference frame but are limited in source density, which can restrict the number of usable reference stars in fields near bright planets \citep{ESA1997Hipparcos,Hog2000Tycho2}. The final sample consists of 17 star catalogs, including Gaia DR1 and Gaia DR2, whose key properties are summarized in Table~\ref{tab:catalog_overview}.
+Early photographic catalogs, such as USNO-A2.0 and GSC~1.2, generally lack proper motion information and can introduce time-dependent position offsets \citep{Monet1998USNOA2,Morrison2001GSC12}. Intermediate catalogs, including PPM, ACT, and the UCAC series, provide improved positional accuracy and proper motion coverage but may still exhibit regional systematic biases \citep{Roeser1991PPM,Urban1998ACT,Zacharias2004UCAC2,Zacharias2013UCAC4}. High-precision catalogs such as Hipparcos and Tycho-2 provide a stable and well-characterized reference frame but are limited in source density, which can restrict the number of usable reference stars in fields near bright planets \citep{ESA1997Hipparcos,Hog2000Tycho2}. The final sample consists of 17 star catalogs, including Gaia DR1 and Gaia DR2, whose key properties are summarized in Table~\ref{tab:catalog_overview}.
 
 \begin{deluxetable*}{lllllllll}
 \tablecaption{Summary of astrometric catalogs used in this work
@@ -119,7 +119,7 @@ UCAC4         & $R \approx 7\text{--}16$      & 113,780,093   & J2000           
 Gaia DR1      & $G = 5\text{--}20.7$          & 1,142,685,696 & J2015                & ICRS   & NO  & 100\%   & \href{https://cdsarc.cds.unistra.fr/viz-bin/cat/I/337}{I/337}   & \citet{GaiaDR1} \\
 Gaia DR2      & $G = 3\text{--}21$            & 1,331,909,727 & J2015.5              & ICRS   & YES & 100\%   & \href{https://cdsarc.cds.unistra.fr/viz-bin/cat/I/345}{I/345}   & \citet{GaiaDR2} \\
 \enddata
-\tablecomments{Catalogs are listed in approximate chronological order of publication. Gaia DR1 and DR2 are included for completeness; their astrometric properties are described in detail in Section~\ref{subsec:gaia}. The Proper Motion column indicates whether the catalog provides proper-motion data. Coverage gives the approximate fraction of the sky covered by the catalog. Primary literature references correspond to the original catalog publications listed in the CDS entries.}
+\tablecomments{Catalogs are listed in approximate chronological order of publication. Gaia DR1 and DR2 are included for completeness; their astrometric properties are described in detail in Section~\ref{subsec:gaia}. The Proper Motion column indicates whether the catalog provides proper motion data. Coverage gives the approximate fraction of the sky covered by the catalog. Primary literature references correspond to the original catalog publications listed in the CDS entries.}
 \end{deluxetable*}
 
 \section{Basic Framework of the Correction Method} \label{sec:methods}
@@ -136,9 +136,9 @@ The overall procedure consists of five main steps:
 
 (4) estimate local systematic offsets in position and proper motion; 
 
-(5) construct a correction model and generate tabulated corrections.
+(5) construct a debiasing model and generate tabulated corrections.
 
-\subsection{Frame and Epoch Propagation}
+\subsection{Frame and Epoch Transformation}
 
 To ensure consistency, all catalogs are transformed to a common reference frame and comparison epoch. J2000.0 is adopted as the comparison epoch since it is the reference epoch for most historical catalogs considered in this work.
 
@@ -188,13 +188,13 @@ These quantities represent local catalog systematics referenced to epoch J2000.0
 
 \subsection{Correction Tables and Application} \label{subsec:correction_application}
 
-The resulting corrections are stored on a HEALPix grid. Each tile is associated with a set of parameters, including the HEALPix index, $\Delta \alpha_{{\rm J2000}}$, $\Delta \delta_{{\rm J2000}}$, $\Delta \mu_{\alpha}$, and $\Delta \mu_{\delta}$.
+The resulting corrections are stored on a HEALPix grid. Each tile is associated with the four correction parameters $\Delta\alpha_{\rm J2000}$, $\Delta\delta_{\rm J2000}$, $\Delta\mu_\alpha$, $\Delta\mu_\delta$, indexed by its HEALPix pixel number.
 
 For an arbitrary epoch $t$, the corrections are applied via a linear model:
 \begin{equation}
 \begin{aligned}
-\Delta \alpha(t) &= \Delta \alpha_{{\rm J2000}} + \Delta \mu_{\alpha}\,\Delta t,\\
-\Delta \delta(t) &= \Delta \delta_{{\rm J2000}} + \Delta \mu_{\delta}\,\Delta t,\\
+\Delta \alpha(t) &= \Delta \alpha_{\rm J2000} + \Delta \mu_{\alpha}\,\Delta t,\\
+\Delta \delta(t) &= \Delta \delta_{\rm J2000} + \Delta \mu_{\delta}\,\Delta t,\\
 \Delta t &= t - 2000.0.
 \end{aligned}
 \end{equation}
@@ -205,12 +205,12 @@ In practical applications, the corresponding tile is identified from the sky pos
 
 \subsection{Statistical Properties of the Corrections} \label{subsec:distribution}
 
-The global statistics in Table~\ref{tab:global_corrections_j2000} reveal a clear hierarchy in the amplitudes of the derived catalog corrections. Modern high-precision catalogs, such as Gaia DR2, Hipparcos, Tycho-2, UCAC2, and UCAC4, exhibit median position and proper motion corrections at the milliarcsecond level, with small dispersions across the sky. In contrast, older photographic catalogs and catalogs without reliable proper motions show significantly larger offsets and broader sky-to-sky scatter, with typical position systematics ranging from tens to hundreds of mas, and reaching nearly 0.5 arcsecond in the most extreme cases (e.g., AGK1).
+The global statistics in Table~\ref{tab:global_corrections_j2000} reveal a clear hierarchy in the amplitudes of the derived catalog corrections. Modern high-precision catalogs, such as Gaia DR2, Hipparcos, Tycho-2, UCAC2, and UCAC4, exhibit median position and proper motion corrections at the milliarcsecond level, with small dispersions across the sky. In contrast, older photographic catalogs and catalogs without reliable proper motions show significantly larger offsets and broader sky-to-sky scatter, with typical position systematics ranging from tens to hundreds of mas, and reaching the arcsecond level in the most extreme cases (e.g., AGK1).
 
 \begin{deluxetable*}{ccccccccc}
 \tablecaption{Global statistics of position and proper motion corrections for each star catalog at epoch J2000.0\label{tab:global_corrections_j2000}}
 \tablehead{
-\colhead{Catalog} & \multicolumn{2}{c}{$\Delta\alpha_{{\rm J2000}}$ [mas]} & \multicolumn{2}{c}{$\Delta\delta_{{\rm J2000}}$ [mas]} & \multicolumn{2}{c}{$\Delta\mu_{\alpha}$ [mas/yr]} & \multicolumn{2}{c}{$\Delta\mu_{\delta}$ [mas/yr]} \\
+\colhead{Catalog} & \multicolumn{2}{c}{$\Delta\alpha_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\delta_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\mu_{\alpha}$ [mas/yr]} & \multicolumn{2}{c}{$\Delta\mu_{\delta}$ [mas/yr]} \\
 \colhead{} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD}}
 \startdata
 AGK1          & $382.8$  & $785.1$ & $237.6$  & $582.3$ & $0.63$  & $7.76$ & $6.48$  & $7.26$ \\
@@ -231,12 +231,12 @@ UCAC4         & $1.0$    & $11.0$  & $-3.0$   & $9.6$   & $0.10$  & $0.83$ & $0.
 Gaia DR1      & $-23.3$  & $34.1$  & $-55.6$  & $23.0$  & $1.55$  & $2.28$ & $3.70$  & $1.53$ \\
 Gaia DR2      & $-0.1$   & $0.3$   & $-0.3$   & $0.4$   & $0.00$  & $0.02$ & $0.01$  & $0.02$ \\
 \enddata
-\tablecomments{MED denotes the median and MAD the median absolute deviation over all valid tiles. Position corrections $\Delta\alpha_{{\rm J2000}}$ and $\Delta\delta_{{\rm J2000}}$ are in mas; proper motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$ are in mas/yr.}
+\tablecomments{MED denotes the median and MAD the median absolute deviation over all valid tiles. Position corrections $\Delta\alpha_{\rm J2000}$ and $\Delta\delta_{\rm J2000}$ are in mas; proper motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$ are in mas/yr.}
 \end{deluxetable*}
 
-USNO-A2.0 provides a representative example. Its median corrections at J2000.0 are $68.0$~mas in $\Delta\alpha_{{\rm J2000}}$ and $151.9$~mas in $\Delta\delta_{{\rm J2000}}$, with MAD values of $104.2$~mas and $121.5$~mas, respectively. The corresponding proper motion corrections are also non-negligible, reaching $1.22$~mas/yr in $\Delta\mu_{\alpha}$ and $3.03$~mas/yr in $\Delta\mu_{\delta}$.
+USNO-A2.0 provides a representative example. The median corrections at J2000.0 are $\Delta\alpha_{\rm J2000} = 68.0$~mas and $\Delta\delta_{\rm J2000} = 151.9$~mas, with MAD values of 104.2 and 121.5~mas, respectively. The corresponding proper motion corrections are also non-negligible, reaching $1.22$~mas/yr in $\Delta\mu_{\alpha}$ and $3.03$~mas/yr in $\Delta\mu_{\delta}$.
 
-Figure~\ref{fig:hist_usnoa2} shows the distributions of the correction terms for USNO-A2.0 across all HEALPix tiles. The position components exhibit pronounced global offsets and non-Gaussian distributions, while the proper motion corrections display asymmetric behavior between RA and Dec. These characteristics indicate that the corrections reflect spatially coherent systematic differences with respect to the Gaia DR3 reference frame rather than random noise.
+Figure~\ref{fig:hist_usnoa2} shows the distributions of the correction terms for USNO-A2.0 across all HEALPix tiles. The position components exhibit pronounced global offsets and non-Gaussian distributions, while the proper motion corrections display asymmetric behavior between $\alpha$ and $\delta$. These characteristics indicate that the corrections reflect spatially coherent systematic differences with respect to the Gaia DR3 reference frame rather than random noise.
 
 \begin{figure}[ht!]
 \plotone{../figure/fig_bias_usno_a2_j2000.png}
@@ -246,7 +246,7 @@ Figure~\ref{fig:hist_usnoa2} shows the distributions of the correction terms for
 
 \subsection{Spatial Structure of the Systematic Biases} \label{subsec:spatial}
 
-The correction fields exhibit clear spatial organization across the celestial sphere. As shown in Figure~\ref{fig:bias_usno_a2_2x2}, the USNO-A2.0 corrections display large-scale gradients together with localized discontinuities. Similar spatial patterns are observed in other historical catalogs, although their morphology and characteristic scales differ.
+The correction fields exhibit clear spatial organization across the celestial sphere. As shown in Figure~\ref{fig:bias_usno_a2_2x2}, the USNO-A2.0 corrections display large-scale gradients together with block-like discontinuities. Similar spatial patterns are observed in other historical catalogs, although their morphology and characteristic scales differ.
 
 These structures demonstrate that the correction fields are dominated by spatially correlated systematics. In particular, the presence of coherent large-scale patterns indicates that the derived corrections trace intrinsic catalog biases rather than stochastic matching errors. Consequently, global summary statistics alone are insufficient to fully characterize the spatial behavior of catalog systematics.
 
@@ -256,19 +256,19 @@ These structures demonstrate that the correction fields are dominated by spatial
 \label{fig:bias_usno_a2_2x2}
 \end{figure}
 
-\subsection{Origin of the Bias Patterns} \label{subsec:interpretation}
+\subsection{Interpretation of the Spatial Patterns} \label{subsec:interpretation}
 
 The morphology of the correction fields reflects the observational and reduction characteristics of the underlying catalogs. Three representative classes can be identified.
 
-Photographic catalogs (e.g., GSC~1.2, AGK3, SAO, and Yale) show block-like or discontinuous structures associated with independent plate-based reductions\citep{Platais1998,Eichhorn1974}. This behavior can be quantified through the inter-tile discontinuity.
+Photographic catalogs (e.g., GSC~1.2, AGK3, SAO, and Yale) show block-like or discontinuous structures associated with independent plate-based reductions \citep{Platais1998,Eichhorn1974}. This behavior can be quantified through the inter-tile discontinuity.
 
 \begin{equation}
 D_{\mathrm{disc}}(i,j)=|V(i)-V(j)|,
 \end{equation}
 
-where $i$ and $j$ denote adjacent HEALPix pixels (including both edge- and vertex-sharing neighbors) and $V$ represents a correction component. For these catalogs, $D_{\mathrm{disc}}$ values frequently exceed $100$~mas and can reach the arcsecond level, indicating globally inconsistent plate-to-plate calibrations.
+where $i$ and $j$ denote adjacent HEALPix tiles (including both edge- and vertex-sharing neighbors) and $V$ represents a correction component. For these catalogs, $D_{\mathrm{disc}}$ values frequently exceed $100$~mas and can reach the arcsecond level, indicating globally inconsistent plate-to-plate calibrations.
 
-Catalogs based on scanning strategies (e.g., UCAC2) exhibit stripe-like patterns aligned with the scan direction\citep{Zacharias2017UCAC5}, with amplitudes enhanced in crowded regions. This behavior is largely mitigated in UCAC4, consistent with improved reduction procedures.
+Catalogs based on scanning strategies (e.g., UCAC2) exhibit stripe-like patterns aligned with the scan direction \citep{Zacharias2017UCAC5}, with amplitudes enhanced in crowded regions. This behavior is largely mitigated in UCAC4, consistent with improved reduction procedures.
 
 \begin{figure}[ht!]
 \plotone{../figure/bias_ucac2_2x2.png}
@@ -276,15 +276,15 @@ Catalogs based on scanning strategies (e.g., UCAC2) exhibit stripe-like patterns
 \label{fig:bias_ucac2_2x2}
 \end{figure}
 
-Catalogs lacking reliable proper motion information (e.g., USNO-A2.0) display smooth large-scale gradients in the propagated position corrections. These patterns arise from the accumulation of proper-motion mismatches over long temporal baselines\citep{Vasiliev2019}.
+Catalogs lacking reliable proper motion information (e.g., USNO-A2.0) display smooth large-scale gradients in the propagated position corrections. These patterns arise from the accumulation of proper motion mismatches over long temporal baselines \citep{Vasiliev2019}.
 
-These results show that both the amplitude and morphology of the correction fields are controlled by the intrinsic properties of the source catalogs.
+These results show that both the amplitude and morphology of the correction fields are controlled by the intrinsic properties of the target catalogs.
 
 \subsection{Smoothing and Practical Implementation} \label{subsec:smoothing}
 
 For practical applications, a higher-resolution correction map better represents the spatial structure of catalog systematics. However, directly estimating corrections at finer resolution (e.g., $N_{\rm side}=256$) would significantly reduce the number of matched stars per tile, degrading the statistical robustness of the median estimates.
 
-To balance spatial resolution and statistical stability, we adopt a similar strategy to that of \citet{Eggl2020}: a continuous correction field is reconstructed from the statistically robust $N_{\rm side}=64$ tile estimates using radial basis function (RBF) interpolation with a thin-plate spline kernel \citep{Wahba1990,Schaback1995}. The interpolation uses the $k=8$ nearest neighboring tiles as support points, with contributions weighted by angular distance via the RBF kernel to ensure locality and global smoothness. The final correction product is provided on a HEALPix grid with $N_{\rm side}=256$. Since these values are reconstructed from the coarse-grid estimates rather than independently derived from observations at that resolution, they represent an interpolated continuous field rather than independent measurements.
+To balance spatial resolution and statistical stability, we adopt a similar strategy to that of \citet{Eggl2020}: a continuous correction field is reconstructed from the statistically robust $N_{\rm side}=64$ tile estimates using radial basis function (RBF) interpolation with a thin-plate spline kernel \citep{Wahba1990,Schaback1995}. The interpolation uses the nearest neighboring tiles as support points, with contributions weighted by angular distance via the RBF kernel to ensure locality and global smoothness. The final correction product is provided on a HEALPix grid with $N_{\rm side}=256$. Since these values are reconstructed from the coarse-grid estimates rather than independently derived from observations at that resolution, they represent an interpolated continuous field rather than independent measurements.
 
 The effect on spatial continuity is illustrated in Figure~\ref{fig:bias_ucac4_zoom_compare_n256}. The reconstructed field eliminates the block-like structures present in the original tile-based map while preserving the underlying large-scale patterns. To quantify this improvement, we evaluate the inter-tile discontinuity $D_{\mathrm{disc}}$ defined in Section~\ref{subsec:interpretation}. As shown in Figure~\ref{fig:bias_jump}, the high-percentile and maximum values of $D_{\mathrm{disc}}$ are reduced by factors of roughly 2--4 after smoothing.
 
@@ -304,33 +304,33 @@ At the same time, the large-scale spatial structure of the corrections is preser
 
 \section{Verification} \label{sec:verification}
 
-\subsection{Plate Re-reduction Verification}
+\subsection{Plate Reduction Verification}
 
-To independently evaluate the effectiveness of the catalog debiasing model, we compare two reductions of the same Triton CCD frames obtained during 1996--2006. The earlier reduction, based on the UCAC2 catalog, yielded 943 positions \citep{Qiao2007}, whereas a later re-reduction of the same images using Gaia DR2 as the reference catalog produced 1007 positions, including 941 updated measurements \citep{Yan2020}. Strict epoch-based pairing identifies 930 common positions, for which the Gaia DR2 re-reduction is used as the comparison benchmark.
+To independently evaluate the effectiveness of the catalog debiasing model, we compare two reductions of the same Triton CCD frames obtained during 1996--2006. The earlier reduction, based on UCAC2, yielded 943 positions \citep{Qiao2007}, whereas a later re-reduction of the same frames using Gaia DR2 produced 1007 positions \citep{Yan2020}. Strict epoch-based pairing identifies 930 common positions, for which the Gaia DR2 reduction is used as the comparison benchmark.
 
-The positional offset $\Delta$ is defined as
+The position offset $\Delta$ is defined as
 \begin{equation}
 \Delta = \sqrt{(\Delta\alpha)^2 + (\Delta\delta)^2},
 \end{equation}
-where $\Delta\alpha = (\alpha_{\rm UCAC2}-\alpha_{\rm Gaia\,DR2})\cos\delta$ and $\Delta\delta = \delta_{\rm UCAC2}-\delta_{\rm Gaia\,DR2}$ are the positional differences between the UCAC2-based reduction and the Gaia~DR2 re-reduction.
+where $\Delta\alpha = (\alpha_{\rm UCAC2}-\alpha_{\rm Gaia\,DR2})\cos\delta$ and $\Delta\delta = \delta_{\rm UCAC2}-\delta_{\rm Gaia\,DR2}$ are the position differences between the UCAC2-based reduction and the Gaia DR2 reduction.
 
-Relative to the Gaia DR2 re-reduction, the UCAC2-based reduction has a mean positional offset of 86.2~mas and a median of 82.5~mas. After application of the Gaia DR3-based debiasing model, the mean and median offsets decrease to 76.2~mas and 67.7~mas, respectively. This corresponds to an 11.6\% reduction in the mean offset, with 78.0\% of the common positions showing smaller $\Delta$ values after correction. The remaining difference should not be interpreted solely as uncorrected catalog bias, because the two reductions also differ in centroiding and reduction procedures \citep{Yan2020}.
+Relative to the Gaia DR2 reduction, the UCAC2-based reduction has a mean position offset of 86.2~mas and a median of 82.5~mas. After application of the Gaia DR3-based debiasing model, the mean and median offsets decrease to 76.2~mas and 67.7~mas, respectively. This corresponds to an 11.6\% reduction in the mean offset, with 78.0\% of the common positions showing smaller $\Delta$ values after correction. The remaining difference should not be interpreted solely as uncorrected catalog bias, because the two reductions also differ in centroiding and reduction procedures \citep{Yan2020}.
 
 \begin{figure}[ht!]
 \plotone{../figure/fig_plate_validation.png}
-\caption{(a) Empirical cumulative distributions of the positional offset $\Delta$ before and after debiasing. For a given value of $\Delta$, the vertical coordinate gives the fraction of observations with $\Delta$ smaller than this value. (b) The value of $\Delta$ as a function of chronological observation index. Thin lines show individual measurements, and thick lines show the running-mean trends before and after debiasing.}
+\caption{(a) Empirical cumulative distributions of the position offset $\Delta$ before and after debiasing. For a given value of $\Delta$, the vertical coordinate gives the fraction of observations with $\Delta$ smaller than this value. (b) The value of $\Delta$ as a function of chronological observation index. Thin lines show individual measurements, and thick lines show the running-mean trends before and after debiasing.}
 \label{fig:plate_validation}
 \end{figure}
 
-Figure~\ref{fig:plate_validation}a shows that the post-debiasing cumulative distribution is shifted toward smaller positional offsets, indicating that the corrected positions are generally closer to the Gaia DR2 re-reduction. Figure~\ref{fig:plate_validation}b shows that the running mean of $\Delta$ remains lower after debiasing over most of the observing interval, indicating that the improvement is sustained rather than confined to a narrow epoch range.
+Figure~\ref{fig:plate_validation}a shows that the post-debiasing cumulative distribution is shifted toward smaller position offsets, indicating that the corrected positions are generally closer to the Gaia DR2 reduction. Figure~\ref{fig:plate_validation}b shows that the running mean of $\Delta$ remains lower after debiasing over most of the observing interval, indicating that the improvement is sustained rather than confined to a narrow epoch range.
 
-Although the debiasing model is constructed using Gaia DR3 whereas the benchmark reduction uses Gaia DR2 as the reference catalog, both Gaia releases share a consistent ICRS realization, and the DR3--DR2 differences are negligible compared with the original UCAC2 systematic offsets. The reduction in positional offset relative to this benchmark therefore provides a conservative validation of the correction model.
+The debiasing model is built from Gaia DR3, whereas the benchmark reduction uses Gaia DR2 as the reference catalog. Since both releases share a consistent ICRS realization and their differences are far smaller than UCAC2 systematics, the reduction in position offset constitutes a conservative test of the debiasing model.
 
 \subsection{Ephemeris Comparison Validation}
 
 As a complementary external test, this section compares the observation-minus-ephemeris (O$-$C) residuals before and after applying the catalog debiasing corrections, using the JPL Horizons DE441 planetary ephemeris \citep{Park2021DE441} as an independent dynamical reference.
 
-The validation sample consists of 11\,731 absolute astrometric observations of the Galilean satellites (J1--J4) from the LTE/NSDC archive, spanning the period 1962--2019 and covering 8 reference catalogs across 19 observation files. Because some files contain segments reduced with multiple catalogs, observations are grouped by (file, catalog) pairs, giving 21 groups.
+The validation sample consists of 11\,731 absolute astrometric observations of the four Galilean satellites from the NSDC archive, spanning 1962--2019 and covering 8 reference catalogs across 19 observation files. Because some files contain segments reduced with multiple catalogs, observations are grouped by (file, catalog) pairs, giving 21 groups.
 
 For each observation, the O$-$C residuals in the two coordinate directions are computed from both the original and the debiased positions:
 \begin{equation}
@@ -340,7 +340,7 @@ For each observation, the O$-$C residuals in the two coordinate directions are c
 \end{aligned}
 \end{equation}
 
-The typical single-observation residual in this dataset is 100--200~mas, whereas the median catalog correction is only 10--30~mas. At the individual-observation level, the correction signal is dominated by random measurement noise. However, observations within a single file share the same reference catalog and reduction pipeline; averaging over the $N$ observations in a file suppresses the random component by a factor of $1/\sqrt{N}$. We therefore adopt the file-level mean residuals $\overline{\Delta\alpha}$ and $\overline{\Delta\delta}$ as diagnostics of systematic offsets, and the within-file standard deviations $\sigma_\alpha$ and $\sigma_\delta$ as diagnostics of random scatter.
+Typical single-observation residuals in this dataset are 100--200~mas, while median catalog corrections are only 10--30~mas. At the individual-observation level, the correction signal is therefore dominated by random measurement noise. Observations within a single file, however, share the same reference catalog and reduction pipeline; averaging over the $N$ observations of a file suppresses the random component by $1/\sqrt{N}$. We therefore adopt file-level mean residuals $\overline{\Delta\alpha}$ and $\overline{\Delta\delta}$ as diagnostics of systematic offsets, and within-file standard deviations $\sigma_\alpha$ and $\sigma_\delta$ as diagnostics of random scatter.
 
 Table~\ref{tab:ephem_file_level} lists the file-level statistics for all 21 (file, catalog) groups.
 
@@ -396,7 +396,7 @@ and the improvement $\Delta|\overline{\mathbf{r}}| = |\overline{\mathbf{r}}|_{\r
 \label{fig:file_improvement_bars}
 \end{figure}
 
-Figure~\ref{fig:file_improvement_bars} shows the improvement for all 21 groups. Files reduced with catalogs carrying large known biases show substantial positive improvements: AGK3/jg0032 ($+101$~mas), UCAC2/jg0043 ($+24$~mas), Gaia~DR1/jg0059 ($+20$~mas), and Tycho-2/jg0023 ($+21$~mas). The two Gaia~DR2 files show near-zero change, consistent with the negligible correction amplitude for that catalog. Negative changes are confined to files with very limited statistics (jg0042 and jg0046, both with $N=9$) and to a subset of UCAC4 files (jg0043/UCAC4: $-9$~mas; jg0044: $-12$~mas).
+Figure~\ref{fig:file_improvement_bars} shows the improvement for all 21 groups. Files reduced with catalogs carrying large known biases show substantial positive improvements: jg0032/AGK3 ($+101$~mas), jg0043/UCAC2 ($+24$~mas), jg0059/Gaia DR1 ($+20$~mas), and jg0023/Tycho-2 ($+21$~mas). The two Gaia DR2 files show no significant change, as expected for a catalog whose corrections are negligible. Negative changes are confined to files with very limited statistics (jg0042 and jg0046, both with $N=9$) and to a subset of UCAC4 files (jg0043/UCAC4: $-9$~mas; jg0044: $-12$~mas).
 
 \begin{figure}[ht!]
 \plotone{../figure/fig_catalog_level_scatter.png}
@@ -404,23 +404,23 @@ Figure~\ref{fig:file_improvement_bars} shows the improvement for all 21 groups. 
 \label{fig:catalog_scatter}
 \end{figure}
 
-Figure~\ref{fig:catalog_scatter} aggregates the results at the catalog level. In panel~(a), 6 of 8 catalogs fall below the diagonal: AGK3 decreases from 1356 to 1255~mas, UCAC2 from 47 to 23~mas, and Gaia~DR1 from 36 to 23~mas. UCAC4 shows a slight increase of 7~mas, and Gaia~DR2 is unchanged. In panel~(b), all 8 catalogs cluster tightly along the diagonal, with scatter ratios ($\sigma_{\rm after}/\sigma_{\rm before}$) between 0.85 and 1.00.
+Figure~\ref{fig:catalog_scatter} aggregates the results at the catalog level. In panel~(a), 6 of 8 catalogs fall below the diagonal: AGK3 decreases from 1356 to 1255~mas, UCAC2 from 47 to 23~mas, and Gaia DR1 from 36 to 23~mas. UCAC4 shows a slight increase of 7~mas, and Gaia DR2 is unchanged. In panel~(b), all 8 catalogs cluster tightly along the diagonal, with scatter ratios ($\sigma_{\rm after}/\sigma_{\rm before}$) between 0.85 and 1.00.
 
-The systematic offsets are reduced for the majority of catalogs while the random scatter remains unchanged. This confirms that the debiasing correction acts on catalog-dependent systematic biases without altering the stochastic error structure of the observations. Together with the plate re-reduction test, the ephemeris comparison supports the effectiveness of the Gaia~DR3-based correction model.
+The systematic offsets are reduced for the majority of catalogs while the random scatter remains unchanged. This confirms that the debiasing correction acts on catalog-dependent systematic biases without altering the stochastic error structure of the observations. Together with the plate reduction test, the ephemeris comparison supports the effectiveness of the Gaia DR3-based debiasing model.
 
 \section{Conclusions} \label{sec:conclusions}
 
-Using Gaia DR3 as the astrometric reference, we derive systematic position and proper motion corrections for 17 historical star catalogs. A unified catalog debiasing framework is developed based on HEALPix sky partitioning combined with RBF interpolation, enabling the construction of continuous all-sky correction fields while suppressing artificial discontinuities introduced by discrete tiling. The resulting model preserves the intrinsic large-scale structure of catalog systematics while removing non-physical small-scale variations.
+Using Gaia DR3 as the astrometric reference, we derive systematic position and proper-motion corrections for 17 historical star catalogs. A correction framework is developed based on HEALPix sky partitioning combined with RBF interpolation, enabling the construction of continuous all-sky correction fields while suppressing the discontinuities introduced by tile-based estimation. The resulting model preserves the intrinsic large-scale structure of catalog systematics while suppressing small-scale sampling noise.
 
-The plate re-reduction test shows that the debiased data exhibit reduced systematic residuals while maintaining the original dispersion of the observations. The ephemeris comparison test confirms that the file-level systematic offsets are reduced for the majority of catalogs without altering the within-file scatter. Both tests demonstrate that the proposed approach effectively mitigates catalog-dependent systematic offsets without degrading the stochastic error component, leading to improved consistency in orbit determination solutions\citep{Desmars2013}. The improvement is particularly relevant for historical observations that cannot be directly reduced in the Gaia reference frame.
+The plate reduction test shows that the debiased data exhibit reduced systematic residuals while preserving the random scatter of the observations. The ephemeris comparison test confirms that the file-level systematic offsets are reduced for the majority of catalogs without altering the within-file scatter. Both tests demonstrate that the proposed approach effectively mitigates catalog-dependent systematic offsets without degrading the random component of the residuals, leading to improved consistency in orbit determination solutions. The improvement is particularly relevant for historical observations that cannot be re-reduced in the Gaia reference frame.
 
 \section{Data and Code Availability} \label{sec:data}
 
 The catalog correction tables and supporting materials are publicly available through the National Astronomical Data Center (NADC) at \url{https://nadc.china-vo.org/res/r101824/}.
 
-For each of the 17 catalogs, two HEALPix correction tables are released: a baseline table at $N_{\rm side}=64$ derived directly from the cross-match statistics, and an RBF-smoothed full-sky table at $N_{\rm side}=256$. Each row corresponds to one HEALPix pixel (NESTED ordering) and contains the position corrections $\Delta\alpha$ and $\Delta\delta$ at epoch J2000.0 together with the proper-motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$, all in the sense of (catalog $-$ Gaia DR3). Sky maps and statistical distributions for every catalog are also provided.
+For each of the 17 catalogs, two HEALPix correction tables are released: a baseline table at $N_{\rm side}=64$ derived directly from the cross-match statistics, and an RBF-smoothed full-sky table at $N_{\rm side}=256$. Each row corresponds to one HEALPix pixel (NESTED ordering) and contains the position corrections $\Delta\alpha$ and $\Delta\delta$ at epoch J2000.0 together with the proper motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$, all in the sense of (catalog $-$ Gaia DR3). Sky maps and statistical distributions for every catalog are also provided.
 
-To correct an observation, the relevant tile is identified from its sky position, the position correction at epoch J2000.0 is propagated to the observation epoch via the linear model given in Section~\ref{sec:methods}, and the result is subtracted from the observed coordinates. A reference Python tool \texttt{query\_bias.py} is included in the release, which performs the pixel lookup and epoch propagation automatically. Full usage instructions are given in the accompanying \texttt{README}.
+To correct an observation, the relevant tile is identified from its sky position, the position correction at epoch J2000.0 is propagated to the observation epoch via the linear model given in Section~\ref{sec:methods}, and the result is subtracted from the observed coordinates. A reference Python tool \texttt{query\_bias.py} is included in the release, which performs the pixel lookup and epoch propagation automatically. Full usage instructions are given in the accompanying \href{https://nadc.china-vo.org/res/file_upload/download?id=1109148}{\texttt{README}}.
 
 \clearpage
 
@@ -432,7 +432,7 @@ This work has made use of the Natural Satellites Data Center (NSDC), maintained 
 
 This work also makes use of data from the European Space Agency (ESA) mission Gaia (\url{https://www.cosmos.esa.int/gaia}), processed by the Gaia Data Processing and Analysis Consortium (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.
 
-We thank Yuan Ye for valuable discussions related to catalog systematics and astrometric data processing. This work was supported by the National Key R\&D Program of China (Grant No. 2022YFE0116800), the National Natural Science Foundation of China (Grant No. 12473070), and the Natural Science Foundation of Shanghai (Grant No. 23ZR1473900).
+We thank Yuan Ye (Purple Mountain Observatory, Chinese Academy of Sciences) for valuable discussions related to catalog systematics and astrometric data processing. This work was supported by the National Natural Science Foundation of China under Grant No. 12473070 and the China Manned Space Program with grant no. CMS-CSST-2025-A16.
 \end{acknowledgments}
 
 \bibliography{reference}{}
