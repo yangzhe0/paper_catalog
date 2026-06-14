@@ -180,7 +180,7 @@ Here $\delta_{\rm Gaia}$ denotes the Gaia DR3 declination of the matched source 
 
 For catalogs without proper motion information, only position differences are used. In this case, Gaia source positions are propagated to the catalog epoch $t_{\rm catalog}$, and the differences $\Delta\alpha(t_{\rm catalog})$ and $\Delta\delta(t_{\rm catalog})$ are computed at that epoch. The tile-level medians are then referred to J2000.0 using the median Gaia proper motion of the tile.
 
-Within each HEALPix tile, the median of these differences is computed and referenced to epoch J2000.0, yielding the systematic correction parameters. Tiles with insufficient matched sources are excluded to ensure statistical reliability.
+Within each HEALPix tile, the median of these differences is computed and referenced to epoch J2000.0, yielding the systematic correction parameters. Tiles with fewer than ten matched sources are excluded to ensure statistical reliability.
 \begin{equation}
 (\Delta \alpha_{\rm J2000},\, \Delta \delta_{\rm J2000},\, \Delta \mu_{\alpha},\, \Delta \mu_{\delta}).
 \end{equation}
@@ -211,7 +211,7 @@ The global statistics in Table~\ref{tab:global_corrections_j2000} reveal a clear
 \begin{deluxetable*}{ccccccccc}
 \tablecaption{Global statistics of position and proper motion corrections for each star catalog at epoch J2000.0\label{tab:global_corrections_j2000}}
 \tablehead{
-\colhead{Catalog} & \multicolumn{2}{c}{$\Delta\alpha_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\delta_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\mu_{\alpha}$ [mas/yr]} & \multicolumn{2}{c}{$\Delta\mu_{\delta}$ [mas/yr]} \\
+\colhead{Catalog} & \multicolumn{2}{c}{$\Delta\alpha_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\delta_{\rm J2000}$ [mas]} & \multicolumn{2}{c}{$\Delta\mu_{\alpha}$ [mas~yr$^{-1}$]} & \multicolumn{2}{c}{$\Delta\mu_{\delta}$ [mas~yr$^{-1}$]} \\
 \colhead{} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD} & \colhead{MED} & \colhead{MAD}}
 \startdata
 AGK1          & $382.8$  & $785.1$ & $237.6$  & $582.3$ & $0.63$  & $7.76$ & $6.48$  & $7.26$ \\
@@ -232,10 +232,10 @@ UCAC4         & $1.0$    & $11.0$  & $-3.0$   & $9.6$   & $0.10$  & $0.83$ & $0.
 Gaia DR1      & $-23.3$  & $34.1$  & $-55.6$  & $23.0$  & $1.55$  & $2.28$ & $3.70$  & $1.53$ \\
 Gaia DR2      & $-0.1$   & $0.3$   & $-0.3$   & $0.4$   & $0.00$  & $0.02$ & $0.01$  & $0.02$ \\
 \enddata
-\tablecomments{MED denotes the median and MAD the median absolute deviation over all valid tiles. Position corrections $\Delta\alpha_{\rm J2000}$ and $\Delta\delta_{\rm J2000}$ are in mas; proper motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$ are in mas/yr.}
+\tablecomments{MED denotes the median and MAD the median absolute deviation over all valid tiles. Position corrections $\Delta\alpha_{\rm J2000}$ and $\Delta\delta_{\rm J2000}$ are in mas; proper motion corrections $\Delta\mu_\alpha$ and $\Delta\mu_\delta$ are in mas~yr$^{-1}$.}
 \end{deluxetable*}
 
-USNO-A2.0 provides a representative example. The median corrections at J2000.0 are $\Delta\alpha_{\rm J2000} = 68.0$~mas and $\Delta\delta_{\rm J2000} = 151.9$~mas, with MAD values of 104.2 and 121.5~mas, respectively. The corresponding proper motion corrections are also non-negligible, reaching $1.22$~mas/yr in $\Delta\mu_{\alpha}$ and $3.03$~mas/yr in $\Delta\mu_{\delta}$.
+USNO-A2.0 provides a representative example. The median corrections at J2000.0 are $\Delta\alpha_{\rm J2000} = 68.0$~mas and $\Delta\delta_{\rm J2000} = 151.9$~mas, with MAD values of 104.2 and 121.5~mas, respectively. The corresponding proper motion corrections are also non-negligible, reaching $1.22$ mas~yr$^{-1}$ in $\Delta\mu_{\alpha}$ and $3.03$ mas~yr$^{-1}$ in $\Delta\mu_{\delta}$.
 
 Figure~\ref{fig:hist_usnoa2} shows the distributions of the correction terms for USNO-A2.0 across all HEALPix tiles. The position components exhibit pronounced global offsets and non-Gaussian distributions, while the proper motion corrections display asymmetric behavior between $\alpha$ and $\delta$. These characteristics indicate that the corrections reflect spatially coherent systematic differences with respect to the Gaia DR3 reference frame rather than random noise.
 
@@ -285,7 +285,7 @@ These results show that both the amplitude and morphology of the correction fiel
 
 For practical applications, a higher-resolution correction map better represents the spatial structure of catalog systematics. However, directly estimating corrections at finer resolution (e.g., $N_{\rm side}=256$) would significantly reduce the number of matched stars per tile, degrading the statistical robustness of the median estimates.
 
-To balance spatial resolution and statistical stability, we adopt a similar strategy to that of \citet{Eggl2020}: a continuous correction field is reconstructed from the statistically robust $N_{\rm side}=64$ tile estimates using radial basis function (RBF) interpolation with a thin-plate spline kernel \citep{Wahba1990,Schaback1995}. The interpolation uses the nearest neighboring tiles as support points, with contributions weighted by angular distance via the RBF kernel to ensure locality and global smoothness. The final correction product is provided on a HEALPix grid with $N_{\rm side}=256$. Since these values are reconstructed from the coarse-grid estimates rather than independently derived from observations at that resolution, they represent an interpolated continuous field rather than independent measurements.
+To balance spatial resolution and statistical stability, we adopt a similar strategy to that of \citet{Eggl2020}: a continuous correction field is reconstructed from the statistically robust $N_{\rm side}=64$ tile estimates using radial basis function (RBF) interpolation with a thin-plate spline kernel \citep{Wahba1990,Schaback1995}. The interpolation is performed on the unit-sphere coordinates of the HEALPix pixel centers using a local RBF interpolator with eight nearby valid $N_{\rm side}=64$ tiles and a thin-plate spline kernel. The final correction product is provided on a HEALPix grid with $N_{\rm side}=256$. Since these values are reconstructed from the coarse-grid estimates rather than independently derived from observations at that resolution, they represent an interpolated continuous field rather than independent measurements.
 
 The effect on spatial continuity is illustrated in Figure~\ref{fig:bias_ucac4_zoom_compare_n256}. The reconstructed field eliminates the block-like structures present in the original tile-based map while preserving the underlying large-scale patterns. To quantify this improvement, we evaluate the inter-tile discontinuity $D_{\mathrm{disc}}$ defined in Section~\ref{subsec:interpretation}. As shown in Figure~\ref{fig:bias_jump}, the high-percentile and maximum values of $D_{\mathrm{disc}}$ are reduced by factors of roughly 2--4 after smoothing.
 
@@ -433,10 +433,10 @@ This work has made use of the Natural Satellites Data Center (NSDC), maintained 
 
 This work also makes use of data from the European Space Agency (ESA) mission Gaia (\url{https://www.cosmos.esa.int/gaia}), processed by the Gaia Data Processing and Analysis Consortium (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.
 
-We thank Yuan Ye (Purple Mountain Observatory, Chinese Academy of Sciences) for valuable discussions related to catalog systematics and astrometric data processing. This work was supported by the National Natural Science Foundation of China under Grant No. 12473070 and the China Manned Space Program with grant no. CMS-CSST-2025-A16.
+We thank Yuan Ye (Purple Mountain Observatory, Chinese Academy of Sciences) for valuable discussions related to catalog systematics and astrometric data processing. We also thank S. Eggl for making the catalog debiasing framework and reference implementation publicly available. This work was supported by the National Natural Science Foundation of China under Grant No. 12473070 and the China Manned Space Program with grant no. CMS-CSST-2025-A16.
 \end{acknowledgments}
 
-\bibliography{reference}{}
+\bibliography{reference}
 
 \bibliographystyle{aasjournalv7.1}
 
