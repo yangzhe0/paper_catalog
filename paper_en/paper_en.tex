@@ -1,31 +1,16 @@
-\documentclass[default]{aastex701}
-\usepackage{amsmath}
-
-% | 模式           | 用途   | 特点          |
-% | ------------ | ---- | ----------- |
-% | `manuscript` | 审稿   | 单栏、双倍行距、最易读 |
-% | `preprint`   | 内部流转 | 单栏、较大字号     |
-% | `default`    | 默认   | 单栏、10pt     |
-% | `twocolumn`  | 接近出版 | 双栏、最终版式     |
-% | 选项               | 作用        |
-% | ---------------- | --------- |
-% | `linenumbers`    | 显示行号      |
-% | `trackchanges`   | 标记修改（增删改） |
-% | `anonymous`      | 隐藏作者信息    |
-% | `longauthorlist` | 强制完整作者列表  |
+\documentclass[linenumbers,amsmath,manuscript]{aastex702}
 
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
 \newcommand\latex{La\TeX}
 \begin{document}
 
-% \title{Star Catalog Position and Proper Motion Corrections in Natural Satellite Astrometry}
 \title{Correction of Star Catalog Positional and Proper Motion Systematic Errors for Natural Satellite Astrometry}
 \correspondingauthor{H. Y. Zhang}
 
 \author{Z. Yang}
 \affiliation{School of Mathematics, Physics and Statistics, Shanghai University of Engineering Science, Shanghai 201620, China}
-\email{email@com}
+\email{zhejones@gmail.com}
 
 \author{H. Y. Zhang}
 \affiliation{School of Mathematics, Physics and Statistics, Shanghai University of Engineering Science, Shanghai 201620, China}
@@ -33,28 +18,25 @@
 
 \author{K. Tang}
 \affiliation{Shanghai Astronomical Observatory, Chinese Academy of Sciences, Shanghai 200030, China}
-\email{email@com}
-
-% \author{Siegfried Eggl}
-% \affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena 91101, CA, USA}
-% \email{eggl@uw.edu}
+\email{tangkai@shao.ac.cn}
 
 \author{Y. Yu}
 \affiliation{Shanghai Astronomical Observatory, Chinese Academy of Sciences, Shanghai 200030, China}
 \affiliation{School of Astronomy and Space Science, University of Chinese Academy of Sciences, Beijing 100049, China}
-\email{email@com}
+\email{yuy@shao.ac.cn}
 
 \author{S. L. Liao}
 \affiliation{Shanghai Astronomical Observatory, Chinese Academy of Sciences, Shanghai 200030, China}
-\email{email@com}
+\affiliation{School of Astronomy and Space Science, University of Chinese Academy of Sciences, Beijing 100049, China}
+\email{shilongliao@shao.ac.cn}
 
 \author{D. Yan}
 \affiliation{School of Physics and Electronic Information, Huanggang Normal University, Huanggang 438000, China}
-\email{email@com}
+\email{yandanntsc@163.com}
 
 \author{R. C. Qiao}
 \affiliation{National Time Service Center, Chinese Academy of Sciences, Lintong, Shaanxi 710600, China}
-\email{email@com}
+\email{rcqiao@ntsc.ac.cn}
 
 \begin{abstract}
 
@@ -96,10 +78,28 @@ Optical astrometric observations from different epochs rely on a variety of refe
 
 Early photographic catalogs, such as USNO-A2.0 and GSC~1.2, generally lack proper motion information and can introduce time-dependent position offsets \citep{Monet1998USNOA2,Morrison2001GSC12}. Intermediate catalogs, including PPM, ACT, and the UCAC series, provide improved positional accuracy and proper motion coverage but may still exhibit regional systematic biases \citep{Roeser1991PPM,Urban1998ACT,Zacharias2004UCAC2,Zacharias2013UCAC4}. High-precision catalogs such as Hipparcos and Tycho-2 provide a stable and well-characterized reference frame but are limited in source density, which can restrict the number of usable reference stars in fields near bright planets \citep{ESA1997Hipparcos,Hog2000Tycho2}. The final sample consists of 17 star catalogs, including Gaia DR1 and Gaia DR2, whose key properties are summarized in Table~\ref{tab:catalog_overview}.
 
-\begin{deluxetable*}{lllllllll}
+\clearpage
+\movetabledown=2.0in
+\begin{rotatetable}
+\begin{deluxetable*}{llrllllll}
+\tabletypesize{\scriptsize}
+\tablewidth{0pt}
+
 \tablecaption{Summary of astrometric catalogs used in this work
 \label{tab:catalog_overview}}
-\tablehead{\colhead{Catalog} & \colhead{Magnitude} & \colhead{Number of Stars} & \colhead{Epoch} & \colhead{Reference Frame} & \colhead{Proper Motion} & \colhead{Coverage} & \colhead{CDS ID} & \colhead{Reference}}
+
+\tablehead{
+\colhead{Catalog} &
+\colhead{Magnitude} &
+\colhead{Number of Stars} &
+\colhead{Epoch} &
+\colhead{Reference Frame} &
+\colhead{Proper Motion} &
+\colhead{Coverage} &
+\colhead{CDS ID} &
+\colhead{Reference}
+}
+
 \startdata
 AGK1          & $V \approx 2.2\text{--}9.1$   & 5,954         & mean epoch           & FK4    & NO  & 3\%     & \href{https://cdsarc.cds.unistra.fr/viz-bin/cat/I/310}{I/310}   & \citet{AGK1} \\
 FK4 catalogue & $V \approx 1\text{--}9.5$     & 1,535         & B1950                & FK4    & YES & 3\%     & \href{https://cdsarc.cds.unistra.fr/viz-bin/cat/I/143}{I/143}   & \citet{FK4} \\
@@ -121,6 +121,8 @@ Gaia DR2      & $G = 3\text{--}21$            & 1,331,909,727 & J2015.5         
 \enddata
 \tablecomments{Catalogs are listed in approximate chronological order of publication. Gaia DR1 and DR2 are included for completeness; their astrometric properties are described in detail in Section~\ref{subsec:gaia}. The Proper Motion column indicates whether the catalog provides proper motion data. Coverage gives the approximate fraction of the sky covered by the catalog. Primary literature references correspond to the original catalog publications listed in the CDS entries.}
 \end{deluxetable*}
+\end{rotatetable}
+\clearpage
 
 \section{Basic Framework of the Correction Method} \label{sec:methods}
 
@@ -143,7 +145,6 @@ The overall procedure consists of five main steps:
 To ensure consistency, all catalogs are transformed to a common reference frame and comparison epoch. J2000.0 is adopted as the comparison epoch since it is the reference epoch for most historical catalogs considered in this work.
 
 For catalogs already in the ICRS, positions are propagated to epoch J2000.0 when proper motion information is available. For catalogs lacking proper motions, Gaia positions are propagated to the catalog epoch, and the comparison is performed at that epoch. 
-% The resulting positional differences derived at the catalog epoch are subsequently propagated to J2000.0 using Gaia proper motions to ensure consistency of the correction parameters.
 
 For catalogs based on the FK4 reference frame (AC, AGK1, AGK3, FK4 catalogue, and Yale), coordinates are first transformed into the ICRS, and matching is carried out at the corresponding comparison epochs \citep{Murray1989,Ma1998ICRF,Fey2015}. This procedure ensures that the measured differences primarily reflect intrinsic catalog systematics and avoids introducing additional uncertainties from inaccurate proper motions in historical catalogs.
 
@@ -437,6 +438,6 @@ We thank Yuan Ye (Purple Mountain Observatory, Chinese Academy of Sciences) for 
 
 \bibliography{reference}{}
 
-\bibliographystyle{aasjournalv7}
+\bibliographystyle{aasjournalv7.1}
 
 \end{document}
